@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;500&display=swap');
+
+html {
+    background-color: #000000;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Raleway", Tahoma, Arial, sans-serif;
+    font-size: .9em;
+}
+body{
+    box-sizing: border-box;
+    background-image: url(../../images/upiit.jpeg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.shape {
+    background-color: rgba(0,0,0,0.4);
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.5); 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4em;
+    padding-right: 2em;
+    
+}
+
+.logo img {
+    height: 60px;
+    width: 60px;
+}
+
+
+header nav ul li{
+    display: inline;
+    font-size: 1.25em;
+    padding-left: 1em;
+}
+
+header nav ul li a:link {
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+header nav ul li a:hover {
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+header nav ul li a:visited {
+    color: #fff;
+    text-decoration: none;
+}
+
+.submenu {
+    display: none;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.center-background {
+    width: 90vw;
+    position: relative;
+    padding-top: 10vh;
+    padding-bottom: 8vh;
+}
+
+.center-background {
+    background-color: #f1f1f1;
+    border-radius: 1em;
+    box-shadow: 0 2em 2em rgba(0, 0, 0, 0.3);
+    text-align: start;
+    display: inline-flex;
+    align-items: end;
+    justify-content: center;
+    text-align: center;
+}
+
+.users{
+    width: 12vw;
+}
+
+.card{
+    position: relative;
+    width: 30%;
+    font-size: 1.5em;
+    color: rgb(109, 50, 79);
+}
+
+.description {
+    display: none;
+    font-size: 0.6em;
+    text-align: left;
+    color: #000000;
+}
+
+.description p ul li{
+    font-size: 0.6em;
+    text-align: left;
+    color: #000000;
+}
+
+footer {
+    background-color: rgb(109, 50, 79);
+    color: #fff;
+    padding: 15px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+  
+.small {
+    font-size: 0.75em;
+    margin-bottom: 0.5em;
+}
+  
+small time {
+    display: inline-block;
+    margin-right: 0.25em;
+}

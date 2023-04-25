@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/login/login.css">
+    <title>Log In</title>
+</head>
+<body>
+    <div class="shape"></div>
+
+    <main>
+        <section id="user" class="user">
+
+            <div class="logo">
+                <img src="images/login/logo.png">
+                <p>Intituto Politecnico Nacional</p>
+            </div>
+            <h1 class="title">Inicio de Sesión</h1>
+            <form method="post">
+                <input type="text" name="matricula" size="60" required class="data"/>
+                <label>Matricula o nombre de trabajador</label>
+                <p><input type="submit" value="Siguiente" class="button"/></p>
+                <p id="unidad" class="small">Unidad Profesional Interdisplinaria de Ingeniería Campus Tlaxcala</p>
+            </form>
+        </section>
+
+        <section id="password" class="user">
+            <div class="logo">
+                <img src="images/login/logo.png">
+                <p>Intituto Politecnico Nacional</p>
+            </div>
+            <h1 class="title">Inicio de Sesión</h1>
+            <form method="post">
+                <input type="password" name="contraseña" size="60" required class="data"/>
+                <label>Contraseña</label>
+                <p><input type="submit" value="Ingresar" class="button"/></p>
+                <p class="small password"><a href="#">Olvide mi contraseña</a></p>
+                <p id="unidad" class="small">Unidad Profesional Interdisplinaria de Ingeniería Campus Tlaxcala</p>
+            </form>
+        </section>
+    </main>
+</body>
+</html>

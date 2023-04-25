@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/reset.css">
+    <link rel="stylesheet" href="styles/horario/horario.css">
+    <script src="scripts/horario/horario.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="shape"></div>
+    
+    <header>
+        <div class="logo">
+            <a href="user.html"><img src="images/logo.png" title="logo" alt="logo"></a>
+        </div>
+
+        <nav>
+            <ul>
+                <li>
+                    <a href="user.html">Inicio</a>
+                    <ul class="submenu">
+                        <li><a href="#">Laboratorio 1</a></li>
+                        <li><a href="#">Laboratorio 2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Reservar</a></li>
+                <li><a href="inicio.html">Salir</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div class="left">
+                <div class="calendar">
+                    <div class="today">
+                        <div class="goto">
+                            <input type="text" placeholder="mm/aaaa" class="date-input">
+                            <button class="goto-btn">Ir</button>
+                        </div>
+                        <button class="today-btn">Hoy</button>
+                    </div>
+                    
+                    <div class="month">
+                        <span class="prev">&#60;</span>
+                        <p class="date"></p>
+                        <span class="next">&#62;</span>
+                    </div>
+
+                    <div class="week-days">
+                        <div><p>D</p></div>
+                        <div><p>L</p></div>
+                        <div><p>M</p></div>
+                        <div><p>M</p></div>
+                        <div><p>J</p></div>
+                        <div><p>V</p></div>
+                        <div><p>S</p></div>
+                    </div>
+
+                    <div class="days">
+                        <!--
+                        <p class="day prev-date">26</p>
+                        <p class="day prev-date">27</p>
+                        <p class="day prev-date">28</p>
+                        <p class="day prev-date">29</p>
+                        <p class="day prev-date">30</p>
+                        <p class="day prev-date">31</p>
+                        <p class="day">1</p>
+                        <p class="day">2</p>
+                        <p class="day">3</p>
+                        <p class="day">4</p>
+                        <p class="day active">5</p>
+                        <p class="day">6</p>
+                        <p class="day">7</p>
+                        <p class="day">8</p>
+                        <p class="day">9</p>
+                        <p class="day day-today active">10</p>
+                        <p class="day">11</p>
+                        <p class="day">12</p>
+                        <p class="day">13</p>
+                        <p class="day event active">14</p>
+                        <p class="day">15</p>
+                        <p class="day">16</p>
+                        <p class="day">17</p>
+                        <p class="day">18</p>
+                        <p class="day">19</p>
+                        <p class="day">20</p>
+                        <p class="day event active">21</p>
+                        <p class="day">22</p>
+                        <p class="day">23</p>
+                        <p class="day">24</p>
+                        <p class="day">25</p>
+                        <p class="day">26</p>
+                        <p class="day active">27</p>
+                        <p class="day">28</p>
+                        <p class="day">29</p>
+                        <p class="day">30</p>
+                        <p class="day next-date">1</p>
+                        <p class="day next-date">2</p>
+                        <p class="day next-date">3</p>
+                        <p class="day next-date">4</p>
+                        <p class="day next-date">5</p>
+                        <p class="day next-date">6</p>
+                        -->
+                    </div>
+                    
+                </div>
+            </div>
+            <section class="right">
+                <section class="today-date">
+                    <p class="event-day">Miercoles</p>
+                    <p class="event-date">14 Abril 2023</p>
+                </section>
+                <section class="events">
+                    <!--
+                    <section class="event-n">
+                        <h3 class="event-title">Reservación 1</h3>
+                        <p class="event-time"><time>10:00 AM - 12:00 PM</time></p>
+                        <button class="cancel-btn">Cancelar Reservacion</button>
+                    </section>
+
+                    <section class="event-n">
+                        <h3 class="event-title">Reservación 2</h3>
+                        <p class="event-time"><time>10:00 AM - 12:00 PM</time></p>
+                        <button class="cancel-btn">Cancelar Reservacion</button>
+                    </section>
+
+                    <section class="event-n">
+                        <h3 class="event-title">Reservación 3</h3>
+                        <p class="event-time"><time>10:00 AM - 12:00 PM</time></p>
+                        <button class="cancel-btn">Cancelar Reservacion</button>
+                    </section>
+
+                    <section class="event-n">
+                        <h3 class="event-title">Reservación 4</h3>
+                        <p class="event-time"><time>10:00 AM - 12:00 PM</time></p>
+                        <button class="cancel-btn">Cancelar Reservacion</button>
+                    </section>
+                    -->
+                </section>
+                <section class="add-new-event">
+                    <section class="new-event-title">
+                        <h3 class="add-event-title">Hacer reservación</h3>
+                        <button class="close">x</button>
+                    </section>
+                    <section class="add-event-input">
+                        <p id="error" class="hide-message">
+                            <strong>Error</strong>
+                            <label id="errorMensaje"></label>
+                        </p>
+                        <input type="text" placeholder="Nombre del solicitante" class="event-name">
+                        <input type="text" placeholder="Clase o Carrera" class="event-carreer">
+                        <select name="labs" class="lab">
+                            <option value="lab1">Laboratorio 1</option>
+                            <option value="lab2">Laboratorio 2</option>
+                        </select>
+                        <select name="moduls" class="modul">
+                            <option value="selectModul">Ver Disponibilidad</option>
+                            <option value="mod1">7:00 AM - 8:30 AM</option>
+                            <option value="mod1">8:30 AM - 10:00 AM</option>
+                            <option value="mod1">10:00 AM - 11:30 AM</option>
+                            <option value="mod1">11:30 AM - 01:00 PM</option>
+                            <option value="mod1">01:00 PM - 02:30 PM</option>
+                            <option value="mod1">02:30 PM - 4:00 PM</option>
+                            <option value="mod1">4:00 PM - 5:30 PM</option>
+                            <option value="mod1">5:30 PM - 7:00 PM</option>
+                        </select>
+                    </section>
+                    <div class="send">
+                        <button class="add-event-btn">Reservar</button>
+                    </div>
+                </section>
+                <div class="new-event">
+                    <button class="add-event">
+                        +
+                    </button>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer>
+        <p class="small">
+            &copy; <time>2023</time> | Todos los derechos reservados
+        </p>
+        <p>Unidad Profesional Interdisplinaria de Ingeniería Campus Tlaxcala</p>
+    </footer>
+</body>
+</html>

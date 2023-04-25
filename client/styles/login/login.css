@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;500&display=swap');
+
+body {
+    font-family: "Raleway", Tahoma, Arial, sans-serif;
+    font-size: 1em;
+}
+
+body{
+    background-image: url(../../images/upiit.jpeg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    display: flex;
+}
+
+.shape {
+    background-color: rgba(0,0,0,0.4);
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
+}
+
+.user {
+    position: absolute;
+    background-color: #f1f1f1;
+    margin: 12vw 0 0 50vh;
+    width: 50vw;
+    height: 60vh;
+    border-radius: 2%;
+}
+
+.user {
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.logo {
+    margin: 1em 1em 3em 1em;
+}
+
+.logo img {
+    margin: 1em;
+    width: 2em;
+    float: left;
+}
+
+.logo p {
+    padding-top: 2em;
+}
+
+
+.user p{
+    margin-left: 4em;
+    margin-top: 1em;
+}
+
+.title {
+    margin-left: 1.5em;
+    font-size: 2.5em;
+}
+
+.data {
+    margin-top: 2.5em;
+    margin-left: 4em;
+    margin-bottom: 2em;
+    border: 0;
+    border-bottom: 1pt solid rgb(112, 45, 82);
+    background-color: #f1f1f1;
+    height: 2.5em;
+    position: relative;
+    background: none;
+    outline: none;
+    font-family: "Raleway", Tahoma, Arial, sans-serif;
+    font-size: 1em;
+    position: relative;
+}
+
+.user label {
+    position: absolute;
+    top: 52%;
+    left: 4.1em;
+    color: #adadad;
+    transform: translateY(-50%);
+    font-size: 1em;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.user input:focus + .user label {
+
+}
+
+.user span::before {
+    content: '';
+    position: relative;
+    top: 2em;
+    left: 0;
+    width: 0%;
+    height: 0.5em;
+    background-color: rgb(112, 45, 82);
+    transition: .5s;
+}
+
+.user input:focus ~ label,
+.user input:focus ~ label {
+    top: 12em;
+    color: rgb(112, 45, 82);
+}
+
+
+.user input:focus ~ span::before,
+.user input:focus ~ span::before {
+    width: 100%;
+}
+
+.button {
+    font-family: "Raleway", Tahoma, Arial, sans-serif;
+    background-color: rgb(112, 45, 82);
+    color: #ffffff;
+    border: 0;
+    width: 6em;
+    height: 2.5em;
+}
+
+.small {
+    font-size: 0.75em;
+}
+
+#unidad {
+    padding-left: 1.5em;
+    padding-top: 1em;
+}
+
+#password {
+    display: visible;
+}
+
+.password {
+    padding-left: 1.5em;
+}
+
+.password a:link {
+    color: rgb(112, 45, 82);
+    text-decoration: none;
+    font-weight: bold;
+}
+.password a:hover {
+    color: rgb(112, 45, 82);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.password a:visited {
+    color: rgb(112, 45, 82);
+    text-decoration: none;
+    font-weight: bold;
+}
