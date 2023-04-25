@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;500&display=swap');
+
+html {
+    background-color: #000000;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Raleway", Tahoma, Arial, sans-serif;
+    font-size: .9em;
+}
+
+body{
+    box-sizing: border-box;
+    background-image: url(../../images/upiit.jpeg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.shape {
+    background-color: rgba(0,0,0,0.4);
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.5); 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4em;
+    padding-right: 2em;
+    
+}
+
+.logo img {
+    height: 60px;
+    width: 60px;
+}
+  
+.login-btn {
+    background-color: transparent;
+    color: #000;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+header nav ul li{
+    display: inline;
+    font-size: 1.25em;
+    padding-left: 1em;
+}
+
+header nav ul li a:link {
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+header nav ul li a:hover {
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+header nav ul li a:visited {
+    color: #fff;
+    text-decoration: none;
+}
+
+.submenu {
+    display: none;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.welcome {
+    width: 70vw;
+    position: relative;
+    margin-top: 10vh;
+    padding-top: 2em;
+    padding-bottom: 2em;
+    padding-left: 4em;
+}
+
+.welcome {
+    /*background: linear-gradient(to right, rgb(58, 23, 42), rgb(83, 35, 61),rgb(58, 23, 42));*/
+    background-color: #f1f1f1;
+    border-radius: 1em;
+    box-shadow: 0 2em 2em rgba(0, 0, 0, 0.3);
+    text-align: start;
+}
+
+.welcome .user-profile {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin: 2.5em;
+}
+
+.welcome .user-profile img{
+    width: 12vw;
+}
+
+.welcome h1 {
+    color: rgb(109, 50, 79);
+    font-size: 2.5em;
+}
+
+.welcome .name {
+    padding-top: 1em;
+    margin-bottom: 1em;
+    color: rgb(109, 50, 79);
+}
+
+div {
+    display: inline-flex;
+}
+
+.welcome .button {
+    font-family: "Raleway", Tahoma, Arial, sans-serif;
+    background-color: rgb(109, 50, 79);
+    border: 0;
+    width: 6em;
+    height: 2.5em;
+    padding-top: 0.6em;
+    margin-left: 3.5em;
+    text-align: center;
+    position: relative;
+    font-size: 1em;
+}
+
+.button a:link {
+    color: #f1f1f1;
+    text-decoration: none;
+    font-weight: bold;
+}
+.button a:hover {
+    color: #f1f1f1;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.button a:visited {
+    color: #f1f1f1;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer {
+  background-color: rgb(109, 50, 79);
+  color: #fff;
+  padding: 15px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
+.small {
+  font-size: 0.75em;
+  margin-bottom: 0.5em;
+}
+
+small time {
+  display: inline-block;
+  margin-right: 0.25em;
+}
+
