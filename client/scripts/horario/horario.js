@@ -333,8 +333,12 @@ function updateEvents(date){
     axios.get(`http://localhost:8080/reserva/${s}`)
       .then(response => {
         const datos = response.data;
+        for (var k in datos) {
+            
+            console.log(datos[k].idreserva);
+        }
         eventsContainer.textContent = JSON.stringify(datos);
-        window.alert('Resultado de la consulta  ' + response );
+        //window.alert('Resultado de la consulta  ' + response );
       })
       .catch(error => {
         console.log(error);
