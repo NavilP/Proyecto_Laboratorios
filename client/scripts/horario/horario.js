@@ -334,10 +334,32 @@ function updateEvents(date){
       .then(response => {
         const datos = response.data;
         for (var k in datos) {
-            
-            console.log(datos[k].idreserva);
+            let eveN = document.createElement("section");
+            eveN.className="event-n";
+            let h3 = document.createElement("h3");
+            h3.className="event-title";
+            h3.textContent = datos[k].descripcion;
+            let p = document.createElement("p");
+            p.className= "event-time";
+            p.textContent = datos[k].startDateTime + "-" + datos[k].endDateTime;
+            let time = document.createElement("time");
+            p.appendChild(time);
+            let btn = document.createElement("button");
+            btn.className="cancel-btn";
+            btn.textContent="Cancelar reservacion";
+            eveN.appendChild(h3);
+            eveN.appendChild(p);
+            eveN.appendChild(btn);
+            eventsContainer.append(eveN);
+            /*<section class="event-n">
+                        <h3 class="event-title">Reservación 1</h3>
+                        <p class="event-time"><time>10:00 AM - 12:00 PM</time></p>
+                        <button class="cancel-btn">Cancelar Reservacion</button>
+            </section>
+
+            */
         }
-        eventsContainer.textContent = JSON.stringify(datos);
+        console.log(JSON.stringify(datos));
         //window.alert('Resultado de la consulta  ' + response );
       })
       .catch(error => {
