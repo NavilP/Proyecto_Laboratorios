@@ -317,6 +317,7 @@ function getActiveDay(date){
 
 // Mostrar los eventos del dia seleccionado
 function updateEvents(date){
+    //<section class="events"></section>
     let events = "";
     eventsArr.forEach((event) =>{
         if(date === event.day && month + 1 === event.month && year === event.year){
