@@ -58,6 +58,16 @@ const addEventSubmit = document.querySelector(".add-event-btn");
 // Recuperar el input de la nueva reservacion
 const addEventInput = document.querySelector(".add-event-input");
 
+//funciones propias 
+function doubledigit(num) {
+    if (num<10){
+        return '0'+num.toString()
+    }
+    else{
+        return num.toString()
+    }
+}
+
 let today = new Date();
 let activeDay;
 let month = today.getMonth();
@@ -318,6 +328,17 @@ function getActiveDay(date){
 // Mostrar los eventos del dia seleccionado
 function updateEvents(date){
     //<section class="events"></section>
+    console.log(doubledigit(date) + " " + doubledigit(month+1) + " " + year);
+    const s = year + '-' + doubledigit(month + 1) + '-' + doubledigit(date)
+    axios.get(`http://localhost:8080/reserva/${s}`)
+      .then(response => {
+        const datos = response.data;
+        eventsContainer.textContent = JSON.stringify(datos);
+        window.alert('Resultado de la consulta  ' + response );
+      })
+      .catch(error => {
+        console.log(error);
+    });
     let events = "";
     eventsArr.forEach((event) =>{
         if(date === event.day && month + 1 === event.month && year === event.year){
