@@ -58,7 +58,16 @@ app.get("/reserva/:s", (req, res) => {
     )
     console.log(req.params.s);
     const date = req.params.s;
-    const q = `SELECT * FROM reserva WHERE DATE(startDateTime) = '${date}';`
+    const q = `SELECT idreserva, 
+                startDateTime,
+                DATE_FORMAT(startDateTime, '%H:%i') AS startTime, 
+                endDateTime,
+                DATE_FORMAT(endDateTime, '%H:%i') AS endTime,
+                descripcion,
+                tipo, 
+                usuario, numLab
+                FROM reserva
+                WHERE DATE(startDateTime) = '${date}';`
     db.query(q, (err, data) => {
         if (err) return res.json(err)
         return res.json(data)

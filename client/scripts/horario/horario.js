@@ -327,36 +327,51 @@ function getActiveDay(date){
 
 // Mostrar los eventos del dia seleccionado
 function updateEvents(date){
+    eventsContainer.innerHTML = '';
     //<section class="events"></section>
     console.log(doubledigit(date) + " " + doubledigit(month+1) + " " + year);
     const s = year + '-' + doubledigit(month + 1) + '-' + doubledigit(date)
     axios.get(`http://localhost:8080/reserva/${s}`)
       .then(response => {
         const datos = response.data;
-        for (var k in datos) {
-            let eveN = document.createElement("section");
-            eveN.className="event-n";
-            let h3 = document.createElement("h3");
-            h3.className="event-title";
-            h3.textContent = datos[k].descripcion;
+        if(datos.length > 0){
+            for (var k in datos) {
+                let eveN = document.createElement("section");
+                eveN.className="event-n";
+                let h3 = document.createElement("h3");
+                h3.className="event-title";
+                h3.textContent = datos[k].descripcion;
+                let p = document.createElement("p");
+                p.className= "event-time";
+                p.textContent = datos[k].startTime + "-" + datos[k].endTime;
+                let time = document.createElement("time");
+                p.appendChild(time);
+                let btn = document.createElement("button");
+                btn.className="cancel-btn";
+                btn.textContent="Cancelar reservacion";
+                eveN.appendChild(h3);
+                eveN.appendChild(p);
+                eveN.appendChild(btn);
+                eventsContainer.append(eveN);
+                /*<section class="event-n">
+                            <h3 class="event-title">Reservación 1</h3>
+                            <p class="event-time"><time>10:00 AM - 12:00 PM</time></p>
+                            <button class="cancel-btn">Cancelar Reservacion</button>
+                </section>
+                */
+            }
+        }
+        else{
+            let eveNop = document.createElement("section");
+            eveNop.className = "no-event";
             let p = document.createElement("p");
-            p.className= "event-time";
-            p.textContent = datos[k].startDateTime + "-" + datos[k].endDateTime;
-            let time = document.createElement("time");
-            p.appendChild(time);
-            let btn = document.createElement("button");
-            btn.className="cancel-btn";
-            btn.textContent="Cancelar reservacion";
-            eveN.appendChild(h3);
-            eveN.appendChild(p);
-            eveN.appendChild(btn);
-            eventsContainer.append(eveN);
-            /*<section class="event-n">
-                        <h3 class="event-title">Reservación 1</h3>
-                        <p class="event-time"><time>10:00 AM - 12:00 PM</time></p>
-                        <button class="cancel-btn">Cancelar Reservacion</button>
+            p.textContent = "No hay reservaciones";
+            eveNop.appendChild(p);
+            eventsContainer.append(eveNop);
+            /*
+            <section class="no-event">
+                <p>No hay reservaciones</p>
             </section>
-
             */
         }
         console.log(JSON.stringify(datos));
@@ -365,6 +380,7 @@ function updateEvents(date){
       .catch(error => {
         console.log(error);
     });
+    /*
     let events = "";
     eventsArr.forEach((event) =>{
         if(date === event.day && month + 1 === event.month && year === event.year){
@@ -388,7 +404,8 @@ function updateEvents(date){
         `;
     }
     console.log(events);
-    eventsContainer.innerHTML = events;
+    eventsContainer.innerHTML = events;*/
+
 }
 
 // Funcionalidad para crear eventos
