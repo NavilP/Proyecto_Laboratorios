@@ -524,9 +524,8 @@ small time {
     color: rgb(109, 50, 79);
 }
 
-.add-event-input select option {
-    background-color: rgb(109, 50, 79);
-    color: #fff;
+.add-event-input select option{
+    color: rgb(109, 50, 79);
     align-items: center;
     justify-content: center;
     font-size: 0.8em;
@@ -621,4 +620,14 @@ small time {
     display: block;
     padding: 0.5em;
     color: rgb(109, 50, 79);
+}
+
+.lab{
+    color: #000000;
+    background-color: #fff;
+}
+
+.moduls{
+    color: #000000;
+    background-color: #fff;
 }
