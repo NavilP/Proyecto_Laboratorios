@@ -413,7 +413,6 @@ function updateEvents(date) {
                     eveN.appendChild(btn);
                     eventsContainer.append(eveN);
                 }
-                
                 showPop(datos);
             }
             else {
@@ -423,14 +422,8 @@ function updateEvents(date) {
                 p.textContent = "No hay reservaciones";
                 eveNop.appendChild(p);
                 eventsContainer.append(eveNop);
-                /*
-                <section class="no-event">
-                    <p>No hay reservaciones</p>
-                </section>
-                */
             }
             console.log(JSON.stringify(datos));
-            //window.alert('Resultado de la consulta  ' + response );
         })
         .catch(error => {
             console.log(error);
