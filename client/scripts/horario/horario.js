@@ -80,37 +80,29 @@ let modalContent = document.createElement("span");
 modalContent.className = "close";
 modalContent.textContent = "x";
 
-let form = document.createElement("div");
-form.className = "form";
+let prin = document.createElement("div");
+prin.className = "principal";
 
 let mtitle = document.createElement("h1");
-mtitle.textContent = "Editar";
+mtitle.textContent = "Detalles";
 
-let mImg = document.createElement("img");
+let usu = document.createElement("p");
 
-let titulo = document.createElement("input");
-titulo.type = "text";
+let horario = document.createElement("p");
 
-let artista = document.createElement("input");
-artista.type = "text";
+let descripcion = document.createElement("p");
 
-let yeari = document.createElement("input");
-yeari.type = "text";
-
-let tipo = document.createElement("input");
-tipo.type = "text";
+let tipo = document.createElement("p");
 
 modalC.appendChild(modalContent);
-form.appendChild(mtitle);
-form.appendChild(mImg);
-form.appendChild(titulo);
-form.appendChild(artista);
-form.appendChild(yeari);
-form.appendChild(tipo);
-modalC.appendChild(form);
+prin.appendChild(mtitle);
+prin.appendChild(usu);
+prin.appendChild(horario);
+prin.appendChild(descripcion);
+prin.appendChild(tipo);
+modalC.appendChild(prin);
 modal.appendChild(modalC);
 document.body.appendChild(modal);
-
 modalContent.addEventListener("click", () => {
     modal.style.display = "none";
 });
@@ -378,13 +370,18 @@ function getActiveDay(date) {
 }
 
 
-function showPop(){
+function showPop(data){
     const nEvents = document.querySelectorAll(".event-n");
-    for (const eve of nEvents) {
-        eve.addEventListener("click",function(){
+    nEvents.forEach(function(eve, i){
+        eve.addEventListener("click", function(){
             document.querySelector("#myModal").style.display = "block";
+            usu.textContent = data[i].usuario;
+            horario.textContent = data[i].startTime + "-" + data[i].endTime;
+            descripcion.textContent = data[i].descripcion;
+            tipo.textContent = data[i].tipo;
+            console.log(data[i]);
         })
-    }
+    });
 }
 
 // Mostrar los eventos del dia seleccionado
@@ -415,14 +412,9 @@ function updateEvents(date) {
                     eveN.appendChild(p);
                     eveN.appendChild(btn);
                     eventsContainer.append(eveN);
-                    /*<section class="event-n">
-                                <h3 class="event-title">Reservación 1</h3>
-                                <p class="event-time"><time>10:00 AM - 12:00 PM</time></p>
-                                <button class="cancel-btn">Cancelar Reservacion</button>
-                    </section>
-                    */
                 }
-                showPop();
+                
+                showPop(datos);
             }
             else {
                 let eveNop = document.createElement("section");
