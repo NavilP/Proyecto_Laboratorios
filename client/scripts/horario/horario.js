@@ -58,8 +58,7 @@ const addEventSubmit = document.querySelector(".add-event-btn");
 // Recuperar el input de la nueva reservacion
 const addEventInput = document.querySelector(".add-event-input");
 
-//recuperar todos los eventos
-const nEvents = document.querySelectorAll(".event-n");
+
 
 //funciones propias 
 function doubledigit(num) {
@@ -70,6 +69,52 @@ function doubledigit(num) {
         return num.toString()
     }
 }
+
+
+let modal = document.createElement("div");
+modal.id = "myModal";
+modal.className = "modal";
+let modalC = document.createElement("div");
+modalC.className = "modal-content";
+let modalContent = document.createElement("span");
+modalContent.className = "close";
+modalContent.textContent = "x";
+
+let form = document.createElement("div");
+form.className = "form";
+
+let mtitle = document.createElement("h1");
+mtitle.textContent = "Editar";
+
+let mImg = document.createElement("img");
+
+let titulo = document.createElement("input");
+titulo.type = "text";
+
+let artista = document.createElement("input");
+artista.type = "text";
+
+let yeari = document.createElement("input");
+yeari.type = "text";
+
+let tipo = document.createElement("input");
+tipo.type = "text";
+
+modalC.appendChild(modalContent);
+form.appendChild(mtitle);
+form.appendChild(mImg);
+form.appendChild(titulo);
+form.appendChild(artista);
+form.appendChild(yeari);
+form.appendChild(tipo);
+modalC.appendChild(form);
+modal.appendChild(modalC);
+document.body.appendChild(modal);
+
+modalContent.addEventListener("click", () => {
+    modal.style.display = "none";
+});
+
 
 let today = new Date();
 let activeDay;
@@ -332,6 +377,16 @@ function getActiveDay(date) {
     eventDate.innerHTML = date + " " + months[month] + " " + year;
 }
 
+
+function showPop(){
+    const nEvents = document.querySelectorAll(".event-n");
+    for (const eve of nEvents) {
+        eve.addEventListener("click",function(){
+            document.querySelector("#myModal").style.display = "block";
+        })
+    }
+}
+
 // Mostrar los eventos del dia seleccionado
 function updateEvents(date) {
     eventsContainer.innerHTML = '';
@@ -367,6 +422,7 @@ function updateEvents(date) {
                     </section>
                     */
                 }
+                showPop();
             }
             else {
                 let eveNop = document.createElement("section");
@@ -387,74 +443,6 @@ function updateEvents(date) {
         .catch(error => {
             console.log(error);
         });
-    /*
-    let events = "";
-    eventsArr.forEach((event) =>{
-        if(date === event.day && month + 1 === event.month && year === event.year){
-            event.events.forEach((event) => {
-                events += `
-                <section class="event-n">
-                    <h3 class="event-title">${event.title}</h3>
-                    <p class="event-time"><time>${event.time}</time></p>
-                    <button class="cancel-btn">Cancelar Reservacion</button>
-                </section>
-                `;
-            });
-        }
-    });
-
-    if(events === ""){
-        events = `
-        <section class="no-event">
-            <p>No hay reservaciones</p>
-        </section>
-        `;
-    }
-    console.log(events);
-    eventsContainer.innerHTML = events;*/
-
-}
-
-function createPopUp() {
-    let modal = document.createElement("div");
-    modal.id = "myModal";
-    modal.className = "modal";
-    let modalC = document.createElement("div");
-    modalC.className = "modal-content";
-    let modalContent = document.createElement("span");
-    modalContent.className = "close";
-    modalContent.textContent = "x";
-
-    let form = document.createElement("div");
-    form.className = "form";
-
-    let mtitle = document.createElement("h1");
-    mtitle.textContent = "Editar";
-
-    let mImg = document.createElement("img");
-
-    let titulo = document.createElement("input");
-    titulo.type = "text";
-
-    let artista = document.createElement("input");
-    artista.type = "text";
-
-    let year = document.createElement("input");
-    year.type = "text";
-
-    let tipo = document.createElement("input");
-    tipo.type = "text";
-
-    modalC.appendChild(modalContent);
-    form.appendChild(mtitle);
-    form.appendChild(mImg);
-    form.appendChild(titulo);
-    form.appendChild(artista);
-    form.appendChild(year);
-    form.appendChild(tipo);
-    modalC.appendChild(form);
-    modal.appendChild(modalC);
-    document.body.appendChild(modal);
 }
 
 // Funcionalidad para crear eventos
@@ -514,11 +502,7 @@ addEventSubmit.addEventListener("click", () => {
     }
 });
 
-for (const eve of nEvents) {
-    eve.addEventListener("click",function(){
-        createPopUp();
-        modal.style.display = "block";
-    })
-}
+
+
 
 
