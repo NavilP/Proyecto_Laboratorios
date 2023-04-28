@@ -58,12 +58,15 @@ const addEventSubmit = document.querySelector(".add-event-btn");
 // Recuperar el input de la nueva reservacion
 const addEventInput = document.querySelector(".add-event-input");
 
+//recuperar todos los eventos
+const nEvents = document.querySelectorAll(".event-n");
+
 //funciones propias 
 function doubledigit(num) {
-    if (num<10){
-        return '0'+num.toString()
+    if (num < 10) {
+        return '0' + num.toString()
     }
-    else{
+    else {
         return num.toString()
     }
 }
@@ -89,24 +92,28 @@ const months = [
 ];
 
 const eventsArr = [
-   {
-    day: 15,
-    month: 04,
-    year: 2023,
-    events: [
-        {title: "Reservación",
-        time: "10:00 AM - 11:30 AM"},
-    ],
-   },
-   {
-    day: 20,
-    month: 4,
-    year: 2023,
-    events: [
-        {title: "Reservación",
-        time: "11:00 AM - 01:00 PM"},
-    ],
-   },
+    {
+        day: 15,
+        month: 04,
+        year: 2023,
+        events: [
+            {
+                title: "Reservación",
+                time: "10:00 AM - 11:30 AM"
+            },
+        ],
+    },
+    {
+        day: 20,
+        month: 4,
+        year: 2023,
+        events: [
+            {
+                title: "Reservación",
+                time: "11:00 AM - 01:00 PM"
+            },
+        ],
+    },
 ];
 
 // Funcion para inicializar el mes y los dias del calendario
@@ -125,11 +132,11 @@ function actualCalendar() {
     let days = "";
 
     //Días del mes anterior
-    for (let i = day; i > 0; i--){
-        days += `<p class="day prev-date">${prevDays -i + 1}</p>`;
+    for (let i = day; i > 0; i--) {
+        days += `<p class="day prev-date">${prevDays - i + 1}</p>`;
     }
-    
-    for(let i = 1; i <= lastDate; i++){
+
+    for (let i = 1; i <= lastDate; i++) {
         //Marcar los eventos
         let event = false;
         eventsArr.forEach((eventObj) => {
@@ -161,7 +168,7 @@ function actualCalendar() {
         }
     }
 
-    for(let i = 1; i <= nextDays; i++){
+    for (let i = 1; i <= nextDays; i++) {
         days += `<p class="day next-date">${i}</p>`;
     }
     daysContainer.innerHTML = days;
@@ -225,36 +232,36 @@ function addListener() {
             });
 
             //Si se da clic a un día del mes anterior ir al mes anterior
-            if(e.target.classList.contains("prev-date")){
+            if (e.target.classList.contains("prev-date")) {
                 prevMonth();
-                setTimeout(() =>{
+                setTimeout(() => {
                     const days = document.querySelectorAll(".day");
 
-                    days.forEach((day) =>{
-                        if(!day.classList.contains("prev-date") && day.innerHTML === e.target.innerHTML){
+                    days.forEach((day) => {
+                        if (!day.classList.contains("prev-date") && day.innerHTML === e.target.innerHTML) {
                             day.classList.add("active");
                         }
                     });
                 }, 100);
             }
             //Si se da clic a un día del mes siguiente ir al mes iguiente
-            else if(e.target.classList.contains("next-date")){
+            else if (e.target.classList.contains("next-date")) {
                 nextMonth();
-                setTimeout(() =>{
+                setTimeout(() => {
                     const days = document.querySelectorAll(".day");
 
-                    days.forEach((day) =>{
-                        if(!day.classList.contains("next-date") && day.innerHTML === e.target.innerHTML){
+                    days.forEach((day) => {
+                        if (!day.classList.contains("next-date") && day.innerHTML === e.target.innerHTML) {
                             day.classList.add("active");
                         }
                     });
                 }, 100);
             }
             //Si se da clic a un día del mes actual
-            else{
+            else {
                 e.target.classList.add("active");
             }
-            
+
         });
     });
 }
@@ -286,8 +293,8 @@ gotoBtn.addEventListener("click", gotoDate);
 
 function gotoDate() {
     const dateList = dateInput.value.split("/");
-    if(dateList.length === 2){
-        if(dateList[0] > 0 && dateList[0] < 13 && dateList[1].length === 4){
+    if (dateList.length === 2) {
+        if (dateList[0] > 0 && dateList[0] < 13 && dateList[1].length === 4) {
             month = dateList[0] - 1;
             year = dateList[1];
             actualCalendar();
@@ -298,88 +305,88 @@ function gotoDate() {
 }
 
 // Cambiar los dias seleccionados en el apartado derecho
-function getActiveDay(date){
-    const day = new Date(year,month,date);
+function getActiveDay(date) {
+    const day = new Date(year, month, date);
     const dayName = day.toString().split(" ")[0];
-    if (dayName == "Sun"){
+    if (dayName == "Sun") {
         eventDay.innerHTML = "Domingo";
     }
-    if (dayName == "Mon"){
+    if (dayName == "Mon") {
         eventDay.innerHTML = "Lunes";
     }
-    if (dayName == "Tue"){
+    if (dayName == "Tue") {
         eventDay.innerHTML = "Martes";
     }
-    if (dayName == "Wed"){
+    if (dayName == "Wed") {
         eventDay.innerHTML = "Miércoles";
     }
-    if (dayName == "Thu"){
+    if (dayName == "Thu") {
         eventDay.innerHTML = "Jueves";
     }
-    if (dayName == "Fri"){
+    if (dayName == "Fri") {
         eventDay.innerHTML = "Viernes";
     }
-    if (dayName == "Sat"){
+    if (dayName == "Sat") {
         eventDay.innerHTML = "Sábado";
     }
     eventDate.innerHTML = date + " " + months[month] + " " + year;
 }
 
 // Mostrar los eventos del dia seleccionado
-function updateEvents(date){
+function updateEvents(date) {
     eventsContainer.innerHTML = '';
     //<section class="events"></section>
-    console.log(doubledigit(date) + " " + doubledigit(month+1) + " " + year);
+    console.log(doubledigit(date) + " " + doubledigit(month + 1) + " " + year);
     const s = year + '-' + doubledigit(month + 1) + '-' + doubledigit(date)
     axios.get(`http://localhost:8080/reserva/${s}`)
-      .then(response => {
-        const datos = response.data;
-        if(datos.length > 0){
-            for (var k in datos) {
-                let eveN = document.createElement("section");
-                eveN.className="event-n";
-                let h3 = document.createElement("h3");
-                h3.className="event-title";
-                h3.textContent = datos[k].descripcion;
+        .then(response => {
+            const datos = response.data;
+            if (datos.length > 0) {
+                for (var k in datos) {
+                    let eveN = document.createElement("section");
+                    eveN.className = "event-n";
+                    let h3 = document.createElement("h3");
+                    h3.className = "event-title";
+                    h3.textContent = datos[k].descripcion;
+                    let p = document.createElement("p");
+                    p.className = "event-time";
+                    p.textContent = datos[k].startTime + "-" + datos[k].endTime;
+                    let time = document.createElement("time");
+                    p.appendChild(time);
+                    let btn = document.createElement("button");
+                    btn.className = "cancel-btn";
+                    btn.textContent = "Cancelar reservacion";
+                    eveN.appendChild(h3);
+                    eveN.appendChild(p);
+                    eveN.appendChild(btn);
+                    eventsContainer.append(eveN);
+                    /*<section class="event-n">
+                                <h3 class="event-title">Reservación 1</h3>
+                                <p class="event-time"><time>10:00 AM - 12:00 PM</time></p>
+                                <button class="cancel-btn">Cancelar Reservacion</button>
+                    </section>
+                    */
+                }
+            }
+            else {
+                let eveNop = document.createElement("section");
+                eveNop.className = "no-event";
                 let p = document.createElement("p");
-                p.className= "event-time";
-                p.textContent = datos[k].startTime + "-" + datos[k].endTime;
-                let time = document.createElement("time");
-                p.appendChild(time);
-                let btn = document.createElement("button");
-                btn.className="cancel-btn";
-                btn.textContent="Cancelar reservacion";
-                eveN.appendChild(h3);
-                eveN.appendChild(p);
-                eveN.appendChild(btn);
-                eventsContainer.append(eveN);
-                /*<section class="event-n">
-                            <h3 class="event-title">Reservación 1</h3>
-                            <p class="event-time"><time>10:00 AM - 12:00 PM</time></p>
-                            <button class="cancel-btn">Cancelar Reservacion</button>
+                p.textContent = "No hay reservaciones";
+                eveNop.appendChild(p);
+                eventsContainer.append(eveNop);
+                /*
+                <section class="no-event">
+                    <p>No hay reservaciones</p>
                 </section>
                 */
             }
-        }
-        else{
-            let eveNop = document.createElement("section");
-            eveNop.className = "no-event";
-            let p = document.createElement("p");
-            p.textContent = "No hay reservaciones";
-            eveNop.appendChild(p);
-            eventsContainer.append(eveNop);
-            /*
-            <section class="no-event">
-                <p>No hay reservaciones</p>
-            </section>
-            */
-        }
-        console.log(JSON.stringify(datos));
-        //window.alert('Resultado de la consulta  ' + response );
-      })
-      .catch(error => {
-        console.log(error);
-    });
+            console.log(JSON.stringify(datos));
+            //window.alert('Resultado de la consulta  ' + response );
+        })
+        .catch(error => {
+            console.log(error);
+        });
     /*
     let events = "";
     eventsArr.forEach((event) =>{
@@ -408,12 +415,54 @@ function updateEvents(date){
 
 }
 
+function createPopUp() {
+    let modal = document.createElement("div");
+    modal.id = "myModal";
+    modal.className = "modal";
+    let modalC = document.createElement("div");
+    modalC.className = "modal-content";
+    let modalContent = document.createElement("span");
+    modalContent.className = "close";
+    modalContent.textContent = "x";
+
+    let form = document.createElement("div");
+    form.className = "form";
+
+    let mtitle = document.createElement("h1");
+    mtitle.textContent = "Editar";
+
+    let mImg = document.createElement("img");
+
+    let titulo = document.createElement("input");
+    titulo.type = "text";
+
+    let artista = document.createElement("input");
+    artista.type = "text";
+
+    let year = document.createElement("input");
+    year.type = "text";
+
+    let tipo = document.createElement("input");
+    tipo.type = "text";
+
+    modalC.appendChild(modalContent);
+    form.appendChild(mtitle);
+    form.appendChild(mImg);
+    form.appendChild(titulo);
+    form.appendChild(artista);
+    form.appendChild(year);
+    form.appendChild(tipo);
+    modalC.appendChild(form);
+    modal.appendChild(modalC);
+    document.body.appendChild(modal);
+}
+
 // Funcionalidad para crear eventos
-addEventSubmit.addEventListener("click", () =>{
+addEventSubmit.addEventListener("click", () => {
     const eventName = addEventName.value;
     const eventCarreer = addEventCarreer.value;
-    
-    if(eventName === "" || eventCarreer === ""){
+
+    if (eventName === "" || eventCarreer === "") {
         let requeridos = document.querySelector("#error");
         requeridos.classList.remove('hide-message');
         addEventContainer.classList.add('error-add-new-event');
@@ -421,7 +470,7 @@ addEventSubmit.addEventListener("click", () =>{
         addEventInput.classList.add('error-add-event-input');
         requeridos.classList.add('error-message');
         let mensajeError = document.querySelector("#errorMensaje");
-        mensajeError.textContent = "Debes proporcionar todos los campos";   
+        mensajeError.textContent = "Debes proporcionar todos los campos";
         return;
     }
 
@@ -433,16 +482,16 @@ addEventSubmit.addEventListener("click", () =>{
     };
 
     let eventAdded = false;
-    if(eventsArr.length > 0){
+    if (eventsArr.length > 0) {
         eventsArr.forEach((item) => {
-            if(item.day === activeDay && item.month === month + 1 && item.year === year){
+            if (item.day === activeDay && item.month === month + 1 && item.year === year) {
                 item.events.push(newEvent);
                 eventAdded = true;
             }
         });
     }
 
-    if(!eventAdded){
+    if (!eventAdded) {
         eventsArr.push({
             day: activeDay,
             month: month + 1,
@@ -460,8 +509,16 @@ addEventSubmit.addEventListener("click", () =>{
     updateEvents(activeDay);
 
     const activeDayElem = document.querySelector(".day .active");
-    if(!activeDayElem.classList.contains("event")){
+    if (!activeDayElem.classList.contains("event")) {
         activeDayElem.classList.add("event");
     }
 });
+
+for (const eve of nEvents) {
+    eve.addEventListener("click",function(){
+        createPopUp();
+        modal.style.display = "block";
+    })
+}
+
 
