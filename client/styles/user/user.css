@@ -15,7 +15,7 @@ body {
 
 body{
     box-sizing: border-box;
-    background-image: url(../../images/upiit.jpeg);
+    background-image: url(../../images/upiitf.jpg);
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -47,6 +47,16 @@ header {
     width: 60px;
 }
 
+.user-greeting {
+    color: #fff;
+    font-size: 1.25em;
+}
+
+.user-name {
+    font-weight: bold;
+    margin-left: 0.25em;
+}
+
 
 header nav ul li{
     display: inline;
@@ -69,7 +79,6 @@ header nav ul li a:visited {
     color: #fff;
     text-decoration: none;
 }
-
 
 .submenu {
     display: none;
