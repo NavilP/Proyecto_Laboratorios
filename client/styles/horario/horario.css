@@ -218,9 +218,7 @@ main {
     left: 50%;
     width: 75%;
     height: 0.3em;
-    border-radius: 0.3em;
     transform: translateX(-50%);
-    background-color: rgb(109, 50, 79);
 }
 
 .calendar .days .day:hover .event::after {
