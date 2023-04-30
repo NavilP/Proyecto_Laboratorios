@@ -404,6 +404,11 @@ function updateEvents(date) {
             const datos = response.data;
             const datosFil = datos.filter(dato => dato.numLab == labSearch);
             if (datosFil.length > 0) {
+                if(datosFil.length >= 8){
+                    let p = document.createElement("p");
+                    p.textContent = "Reservaciones llenas";
+                    eventsContainer.append(p);
+                }
                 for (var k in datosFil) {
                         let eveN = document.createElement("section");
                         eveN.className = "event-n";
