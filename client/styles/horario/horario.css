@@ -340,12 +340,13 @@ small time {
 
 .events {
     width: 100%;
-    height: 100%;
+    height: 70%;
     max-height: 37em;
     overflow-x: hidden;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+    overflow-y:scroll
 }
 
 .events .event-n {
@@ -689,6 +690,7 @@ small time {
     margin: .5em;
   }
 
+/*djocjjf*/
   #head{
     display: flex;
     flex-direction: row;
@@ -729,5 +731,9 @@ small time {
   }
 
   .complete{
+    text-align: center;
+  }
+
+  .mesage {
     text-align: center;
   }
