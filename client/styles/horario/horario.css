@@ -687,3 +687,42 @@ small time {
   .form *{
     margin: .5em;
   }
+
+  #head{
+    display: flex;
+    flex-direction: row;
+  }
+
+  #head div:nth-child(2){
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    margin-left: 25%;
+    height: 4rem;
+    width: 27%;
+    margin-top: .7rem;
+    margin-left: 20%;
+    border-radius: 10px;
+    color: #fefefe;
+    text-align: center;
+    font-size: 1rem;
+  }
+
+  #head div:nth-child(2) select{
+    height: auto;
+    margin-top: auto;
+    width: 100%;
+    font-size: 1rem;
+    background-color: transparent;
+    color: #fefefe;
+    border: transparent;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 900;
+  }
+  #head div:nth-child(2) select option{
+    text-align: center;
+    background-color: rgb(192, 156, 173);
+    font-size: 1rem;
+  }

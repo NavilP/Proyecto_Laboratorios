@@ -370,10 +370,10 @@ function getActiveDay(date) {
 }
 
 
-function showPop(data){
+function showPop(data) {
     const nEvents = document.querySelectorAll(".event-n");
-    nEvents.forEach(function(eve, i){
-        eve.addEventListener("click", function(){
+    nEvents.forEach(function (eve, i) {
+        eve.addEventListener("click", function () {
             document.querySelector("#myModal").style.display = "block";
             usu.textContent = data[i].usuario;
             horario.textContent = data[i].startTime + "-" + data[i].endTime;
@@ -384,34 +384,44 @@ function showPop(data){
     });
 }
 
+
+const selectElement = document.querySelector("#labCal");
+  selectElement.addEventListener('change', (event) => {
+    updateEvents(activeDay);
+  });
+
+
 // Mostrar los eventos del dia seleccionado
 function updateEvents(date) {
     eventsContainer.innerHTML = '';
+    const labSearch = document.querySelector("#labCal").value;
+    console.log(labSearch);
     //<section class="events"></section>
     console.log(doubledigit(date) + " " + doubledigit(month + 1) + " " + year);
     const s = year + '-' + doubledigit(month + 1) + '-' + doubledigit(date)
     axios.get(`http://localhost:8080/reserva/${s}`)
         .then(response => {
             const datos = response.data;
-            if (datos.length > 0) {
-                for (var k in datos) {
-                    let eveN = document.createElement("section");
-                    eveN.className = "event-n";
-                    let h3 = document.createElement("h3");
-                    h3.className = "event-title";
-                    h3.textContent = datos[k].descripcion;
-                    let p = document.createElement("p");
-                    p.className = "event-time";
-                    p.textContent = datos[k].startTime + "-" + datos[k].endTime;
-                    let time = document.createElement("time");
-                    p.appendChild(time);
-                    let btn = document.createElement("button");
-                    btn.className = "cancel-btn";
-                    btn.textContent = "Cancelar reservacion";
-                    eveN.appendChild(h3);
-                    eveN.appendChild(p);
-                    eveN.appendChild(btn);
-                    eventsContainer.append(eveN);
+            const datosFil = datos.filter(dato => dato.numLab == labSearch);
+            if (datosFil.length > 0) {
+                for (var k in datosFil) {
+                        let eveN = document.createElement("section");
+                        eveN.className = "event-n";
+                        let h3 = document.createElement("h3");
+                        h3.className = "event-title";
+                        h3.textContent = datos[k].descripcion;
+                        let p = document.createElement("p");
+                        p.className = "event-time";
+                        p.textContent = datos[k].startTime + "-" + datos[k].endTime;
+                        let time = document.createElement("time");
+                        p.appendChild(time);
+                        let btn = document.createElement("button");
+                        btn.className = "cancel-btn";
+                        btn.textContent = "Cancelar reservacion";
+                        eveN.appendChild(h3);
+                        eveN.appendChild(p);
+                        eveN.appendChild(btn);
+                        eventsContainer.append(eveN);
                 }
                 showPop(datos);
             }
@@ -430,25 +440,25 @@ function updateEvents(date) {
         });
 }
 
-function gettime(modul){
-    const hours = ['',''];
+function gettime(modul) {
+    const hours = ['', ''];
     switch (modul) {
         case 'mod1':
             hours[0] = '07:00:00';
             hours[1] = '08:30:00';
-          break;
+            break;
         case 'mod2':
             hours[0] = '08:30:00';
             hours[1] = '10:00:00';
-          break;
+            break;
         case 'mod3':
             hours[0] = '10:00:00';
             hours[1] = '11:30:00';
-          break;
+            break;
         case 'mod4':
             hours[0] = '11:30:00';
             hours[1] = '13:00:00';
-          break;
+            break;
         case 'mod5':
             hours[0] = '13:00:00';
             hours[1] = '14:30:00';
@@ -474,7 +484,7 @@ addEventSubmit.addEventListener("click", () => {
     const eventName = addEventName.value;
     const eventCarreer = addEventCarreer.value;
     const user = document.querySelector(".user-name").textContent;
-console.log('dia activo'+ doubledigit(activeDay) + ' '+ doubledigit(month+1) + ' '+year);
+    console.log('dia activo' + doubledigit(activeDay) + ' ' + doubledigit(month + 1) + ' ' + year);
     console.log(eventName);
     console.log(eventCarreer);
     console.log(doubledigit(activeDay) + " " + doubledigit(month + 1) + " " + year);
@@ -484,28 +494,28 @@ console.log('dia activo'+ doubledigit(activeDay) + ' '+ doubledigit(month+1) + '
     const times = gettime(modul.value);
 
     axios.post('http://localhost:8080/addEvento', {
-    start: year + '-' + doubledigit(month + 1) + '-' + doubledigit(activeDay)+ ' '+ times[0],
-    end: year + '-' + doubledigit(month + 1) + '-' + doubledigit(activeDay)+ ' '+ times[1],
-    descripcion: eventName,
-    tipo: eventCarreer,
-    usuario: user,
-    numLab: lab.value
-  })
-  .then(response => {
-    if(response.status ===200){
-        alert(response.data.sqlMessage);
-        updateEvents(activeDay);
-    }
-    console.log(response);
-    window.alert('Resultado de la consulta  ' + response );
-  })
-  .catch(error => {
-    console.log(error);
-  });
-  //
-  
+        start: year + '-' + doubledigit(month + 1) + '-' + doubledigit(activeDay) + ' ' + times[0],
+        end: year + '-' + doubledigit(month + 1) + '-' + doubledigit(activeDay) + ' ' + times[1],
+        descripcion: eventName,
+        tipo: eventCarreer,
+        usuario: user,
+        numLab: lab.value
+    })
+        .then(response => {
+            if (response.status === 200) {
+                alert(response.data.sqlMessage);
+                updateEvents(activeDay);
+            }
+            console.log(response);
+            window.alert('Resultado de la consulta  ' + response);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    //
 
- 
+
+
 
     if (eventName === "" || eventCarreer === "") {
         let requeridos = document.querySelector("#error");
