@@ -448,31 +448,31 @@ function gettime(modul) {
             hours[1] = '08:30:00';
             break;
         case 'mod2':
-            hours[0] = '08:30:00';
+            hours[0] = '08:30:10';
             hours[1] = '10:00:00';
             break;
         case 'mod3':
-            hours[0] = '10:00:00';
+            hours[0] = '10:00:10';
             hours[1] = '11:30:00';
             break;
         case 'mod4':
-            hours[0] = '11:30:00';
+            hours[0] = '11:30:10';
             hours[1] = '13:00:00';
             break;
         case 'mod5':
-            hours[0] = '13:00:00';
+            hours[0] = '13:00:10';
             hours[1] = '14:30:00';
             break;
         case 'mod6':
-            hours[0] = '14:30:00';
+            hours[0] = '14:30:10';
             hours[1] = '16:00:00';
             break;
         case 'mod7':
-            hours[0] = '16:00:00';
+            hours[0] = '16:00:10';
             hours[1] = '15:30:00';
             break;
         case 'mod8':
-            hours[0] = '15:30:00';
+            hours[0] = '15:30:10';
             hours[1] = '19:00:00';
             break;
     }
