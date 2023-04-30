@@ -430,10 +430,82 @@ function updateEvents(date) {
         });
 }
 
+function gettime(modul){
+    const hours = ['',''];
+    switch (modul) {
+        case 'mod1':
+            hours[0] = '07:00:00';
+            hours[1] = '08:30:00';
+          break;
+        case 'mod2':
+            hours[0] = '08:30:00';
+            hours[1] = '10:00:00';
+          break;
+        case 'mod3':
+            hours[0] = '10:00:00';
+            hours[1] = '11:30:00';
+          break;
+        case 'mod4':
+            hours[0] = '11:30:00';
+            hours[1] = '13:00:00';
+          break;
+        case 'mod5':
+            hours[0] = '13:00:00';
+            hours[1] = '14:30:00';
+            break;
+        case 'mod6':
+            hours[0] = '14:30:00';
+            hours[1] = '16:00:00';
+            break;
+        case 'mod7':
+            hours[0] = '16:00:00';
+            hours[1] = '15:30:00';
+            break;
+        case 'mod8':
+            hours[0] = '15:30:00';
+            hours[1] = '19:00:00';
+            break;
+    }
+    return hours;
+}
+
 // Funcionalidad para crear eventos
 addEventSubmit.addEventListener("click", () => {
     const eventName = addEventName.value;
     const eventCarreer = addEventCarreer.value;
+    const user = document.querySelector(".user-name").textContent;
+console.log('dia activo'+ doubledigit(activeDay) + ' '+ doubledigit(month+1) + ' '+year);
+    console.log(eventName);
+    console.log(eventCarreer);
+    console.log(doubledigit(activeDay) + " " + doubledigit(month + 1) + " " + year);
+    const lab = document.querySelector(".lab");
+    console.log(lab.value);
+    const modul = document.querySelector(".modul");
+    const times = gettime(modul.value);
+
+    axios.post('http://localhost:8080/addEvento', {
+    start: year + '-' + doubledigit(month + 1) + '-' + doubledigit(activeDay)+ ' '+ times[0],
+    end: year + '-' + doubledigit(month + 1) + '-' + doubledigit(activeDay)+ ' '+ times[1],
+    descripcion: eventName,
+    tipo: eventCarreer,
+    usuario: user,
+    numLab: lab.value
+  })
+  .then(response => {
+    if(response.status ===200){
+        alert(response.data.sqlMessage);
+        updateEvents(activeDay);
+    }
+    console.log(response);
+    window.alert('Resultado de la consulta  ' + response );
+  })
+  .catch(error => {
+    console.log(error);
+  });
+  //
+  
+
+ 
 
     if (eventName === "" || eventCarreer === "") {
         let requeridos = document.querySelector("#error");

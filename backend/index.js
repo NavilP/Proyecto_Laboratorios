@@ -67,7 +67,7 @@ app.get("/reserva/:s", (req, res) => {
                 tipo, 
                 usuario, numLab
                 FROM reserva
-                WHERE DATE(startDateTime) = '${date}';`
+                WHERE DATE(startDateTime) = '${date}'  ORDER BY startDateTime;`
     db.query(q, (err, data) => {
         if (err) return res.json(err)
         return res.json(data)
