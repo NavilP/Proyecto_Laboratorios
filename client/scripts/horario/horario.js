@@ -248,14 +248,14 @@ actualCalendar();
 
 //Agregar funcionalidad para abrir y cerrar la ventana
 //Abrir la ventana
-function open(){
+function open() {
     addEventContainer.classList.toggle("active-n");
 }
 
 addEventBtn.addEventListener("click", open);
 
 //Cerrar la ventana
-function close(){
+function close() {
     console.log('Cerrado');
     const requeridos = document.querySelector("#errorMensaje");
     const error = document.querySelector("#error-title");
@@ -401,13 +401,21 @@ function showPop(data) {
         eve.addEventListener("click", function () {
             document.querySelector("#myModal").style.display = "block";
             usu.textContent = data[i].usuario;
-            horario.textContent = data[i].startTime + "-" + data[i].endTime;
+            horario.textContent = data[i].startTime + "-" + roundTime(data[i].endTime);
             descripcion.textContent = data[i].descripcion;
             tipo.textContent = data[i].tipo;
             console.log(data[i]);
         })
     });
 }
+
+
+function roundTime(time) {
+    const [hours, minutes] = time.split(':').map(Number);
+    const roundedMinutes = Math.ceil(minutes / 10) * 10;
+    const roundedHours = hours + Math.floor((minutes + roundedMinutes) / 60);
+    return `${roundedHours.toString().padStart(2, '0')}:${(roundedMinutes % 60).toString().padStart(2, '0')}`;
+  }
 
 
 const selectElement = document.querySelector("#labCal");
@@ -443,7 +451,7 @@ function updateEvents(date) {
                     h3.textContent = datos[k].descripcion;
                     let p = document.createElement("p");
                     p.className = "event-time";
-                    p.textContent = datos[k].startTime + "-" + datos[k].endTime;
+                    p.textContent = datos[k].startTime + "-" + roundTime(datos[k].endTime);
                     let time = document.createElement("time");
                     p.appendChild(time);
                     eveN.appendChild(h3);
@@ -484,10 +492,10 @@ function cancelbtn(btn, id) {
             axios.delete(`http://localhost:8080/registro/${id}`)
                 .then(response => {
                     alert(response.data);
-                    updateEvents(activeDay); 
+                    updateEvents(activeDay);
                 })
                 .catch(error => {
-                    console.error(error); 
+                    console.error(error);
                 });
         } else {
             text = "You canceled!";
@@ -560,11 +568,14 @@ addEventSubmit.addEventListener("click", () => {
     })
         .then(response => {
             if (response.status === 200) {
-                alert(response.data.sqlMessage);
+                if (response.data.sqlMessage !== undefined) {
+                    alert(response.data.sqlMessage);
+                }
+                else {
+                    alert("Reservación creada con exito")
+                }
                 updateEvents(activeDay);
             }
-            console.log(response);
-            window.alert('Resultado de la consulta  ' + response);
         })
         .catch(error => {
             console.log(error);
