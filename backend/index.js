@@ -128,7 +128,18 @@ app.post("/addEvento", (req, res) => {
     })
 })
 
-
+app.delete('/registro/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    const q = 'DELETE FROM reserva WHERE idreserva = ?';
+    db.query(q, [id],(err, data) => {
+        if (err) {
+            res.status(500).send('Error al cancelar la reservación');
+          } else {
+            res.send(`Reserva cancelada con exito`);
+          }
+    })
+});
 
 
 app.post('/guardar-datos', (req, res) => {

@@ -748,3 +748,7 @@ small time {
   .mesage {
     text-align: center;
   }
+   
+   .cancel-btn{
+    z-index: 1;
+   }

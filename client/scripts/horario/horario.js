@@ -253,7 +253,7 @@ addEventBtn.addEventListener("click", () => {
 });
 
 //Cerrar la ventana
-function close(){
+function close() {
     console.log('Cerrado');
     const requeridos = document.querySelector("#errorMensaje");
     const error = document.querySelector("#error-title");
@@ -263,8 +263,8 @@ function close(){
     addEventCarreer.value = '';
     addEventModul.value = 'selectModul';
     addEventLab.value = '1';
-    
-    if(!requeridos.classList.contains('hide-message')){
+
+    if (!requeridos.classList.contains('hide-message')) {
         requeridos.classList.add('hide-message');
         error.classList.add('hide-message');
         errorContainer.classList.add('hide-message');
@@ -409,7 +409,7 @@ function showPop(data) {
 
 
 const selectElement = document.querySelector("#labCal");
-  selectElement.addEventListener('change', (event) => {
+selectElement.addEventListener('change', (event) => {
     updateEvents(activeDay);
 });
 
@@ -427,30 +427,33 @@ function updateEvents(date) {
             const datos = response.data;
             const datosFil = datos.filter(dato => dato.numLab == labSearch);
             if (datosFil.length > 0) {
-                if(datosFil.length >= 8){
+                if (datosFil.length >= 8) {
                     let p = document.createElement("p");
                     p.className = "mesage";
                     p.textContent = "Reservaciones llenas";
                     eventsContainer.append(p);
                 }
                 for (var k in datosFil) {
-                        let eveN = document.createElement("section");
-                        eveN.className = "event-n";
-                        let h3 = document.createElement("h3");
-                        h3.className = "event-title";
-                        h3.textContent = datos[k].descripcion;
-                        let p = document.createElement("p");
-                        p.className = "event-time";
-                        p.textContent = datos[k].startTime + "-" + datos[k].endTime;
-                        let time = document.createElement("time");
-                        p.appendChild(time);
+                    let eveN = document.createElement("section");
+                    eveN.className = "event-n";
+                    let h3 = document.createElement("h3");
+                    h3.className = "event-title";
+                    h3.textContent = datos[k].descripcion;
+                    let p = document.createElement("p");
+                    p.className = "event-time";
+                    p.textContent = datos[k].startTime + "-" + datos[k].endTime;
+                    let time = document.createElement("time");
+                    p.appendChild(time);
+                    eveN.appendChild(h3);
+                    eveN.appendChild(p);
+                    if (datos[k].usuario == id) {
                         let btn = document.createElement("button");
                         btn.className = "cancel-btn";
                         btn.textContent = "Cancelar reservacion";
-                        eveN.appendChild(h3);
-                        eveN.appendChild(p);
                         eveN.appendChild(btn);
-                        eventsContainer.append(eveN);
+                        cancelbtn(btn, datos[k].idreserva);
+                    }
+                    eventsContainer.append(eveN);
                 }
                 showPop(datos);
             }
@@ -468,6 +471,29 @@ function updateEvents(date) {
             console.log(error);
         });
 }
+
+function cancelbtn(btn, id) {
+    btn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        console.log("cancelar");
+        let text;
+        if (confirm("Está seguro de cancelar su reservación?") == true) {
+            text = "You pressed OK! " + id;
+            axios.delete(`http://localhost:8080/registro/${id}`)
+                .then(response => {
+                    alert(response.data);
+                    updateEvents(activeDay); 
+                })
+                .catch(error => {
+                    console.error(error); 
+                });
+        } else {
+            text = "You canceled!";
+        }
+        console.log(text);
+    })
+}
+
 
 function gettime(modul) {
     const hours = ['', ''];
@@ -543,55 +569,6 @@ addEventSubmit.addEventListener("click", () => {
         });
     //
 
-
-
-
-    if (eventName === "" || eventCarreer === "") {
-        let requeridos = document.querySelector("#error");
-        requeridos.classList.remove('hide-message');
-        addEventContainer.classList.add('error-add-new-event');
-        addEventSubmit.classList.add('send-error');
-        addEventInput.classList.add('error-add-event-input');
-        requeridos.classList.add('error-message');
-        let mensajeError = document.querySelector("#errorMensaje");
-        mensajeError.textContent = "Debes proporcionar todos los campos";
-        return;
-    }
-
-    const newEvent = {
-        title: "Reservación",
-        name: eventName,
-        carreer: eventCarreer,
-        time: "----",
-    };
-
-    let eventAdded = false;
-    if (eventsArr.length > 0) {
-        eventsArr.forEach((item) => {
-            if (item.day === activeDay && item.month === month + 1 && item.year === year) {
-                item.events.push(newEvent);
-                eventAdded = true;
-            }
-        });
-    }
-
-    if (!eventAdded) {
-        eventsArr.push({
-            day: activeDay,
-            month: month + 1,
-            year: year,
-            events: [newEvent],
-        });
-    }
-
-    close();
-
-    updateEvents(activeDay);
-
-    const activeDayElem = document.querySelector(".day .active");
-    if (!activeDayElem.classList.contains("event")) {
-        activeDayElem.classList.add("event");
-    }
 });
 
 
