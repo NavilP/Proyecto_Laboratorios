@@ -36,6 +36,21 @@ app.get("/usuario", (req, res) => {
     })
 });
 
+app.post('/login', (req, res) => {
+    const usuario = req.body.usuario;
+    const contraseña = req.body.contraseña;
+    db.query('SELECT * FROM usuario WHERE correo = ? AND contraseña = ?', [usuario, contraseña], (error, results) => {
+      if (error) {
+        throw error;
+      }
+      if (results.length > 0) {
+        res.send('Usuario ingresado correctamente');
+      } else {
+        res.send('Usuario o contraseña incorrectos');
+      }
+    });
+});
+
 app.get("/reservas", (req, res) => {
     res.header('Access-Control-Allow-Origin', '*')
     res.header(

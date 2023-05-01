@@ -58,7 +58,10 @@ const addEventSubmit = document.querySelector(".add-event-btn");
 // Recuperar el input de la nueva reservacion
 const addEventInput = document.querySelector(".add-event-input");
 
-
+const userName = document.querySelector(".user-name");
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+userName.textContent = id;
 
 //funciones propias 
 function doubledigit(num) {
