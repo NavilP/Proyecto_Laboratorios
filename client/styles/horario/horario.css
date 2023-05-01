@@ -18,25 +18,26 @@ body {
     font-family: "Raleway", Tahoma, Arial, sans-serif;
     font-size: .9em;
 }
-body{
+
+body {
     box-sizing: border-box;
     background-image: url(../../images/upiit.jpeg);
     background-repeat: no-repeat;
     background-size: 100%;
     margin: 0;
     padding: 0;
-    
+
 }
 
 .shape {
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     position: absolute;
     width: 100%;
     height: 100vh;
 }
 
 header {
-    background-color: rgba(0, 0, 0, 0.5); 
+    background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
     top: 0;
     left: 0;
@@ -47,7 +48,7 @@ header {
     align-items: center;
     padding: 0.4em;
     padding-right: 2em;
-    
+
 }
 
 .logo img {
@@ -56,7 +57,7 @@ header {
 }
 
 
-header nav ul li{
+header nav ul li {
     display: inline;
     font-size: 1.25em;
     padding-left: 1em;
@@ -67,6 +68,7 @@ header nav ul li a:link {
     color: rgb(255, 255, 255);
     text-decoration: none;
 }
+
 header nav ul li a:hover {
     color: rgb(255, 255, 255);
     font-weight: bold;
@@ -257,11 +259,12 @@ main {
     border: none;
     border-radius: 0.5em;
     padding: 0 1.25em;
-    color: rgb(109, 50, 79);;
+    color: rgb(109, 50, 79);
+    ;
     border-radius: 0.5em;
 }
 
-.calendar .today button{
+.calendar .today button {
     padding: 0.5em 0.625em;
     border: 0.063em solid rgb(204, 191, 197);
     border-radius: 0.5em;
@@ -292,12 +295,12 @@ footer {
     text-align: center;
     display: visible;
 }
-  
+
 .small {
     font-size: 0.75em;
     margin-bottom: 0.5em;
 }
-  
+
 small time {
     display: inline-block;
     margin-right: 0.25em;
@@ -403,7 +406,7 @@ small time {
     right: 0.5em;
     font-size: 1.5rem;
     align-items: center;
-    justify-content: center;    
+    justify-content: center;
     transform: translateY(-50%);
     display: none;
 }
@@ -421,6 +424,21 @@ small time {
     transform: translateX(-50%);
     transition: max-height 0.5s;
     color: rgb(109, 50, 79);
+    overflow-y: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 0.7em;
+    background: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgb(192, 156, 173);
+    border-radius: 0.5em;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(109, 50, 79);
 }
 
 .add-new-event.active-n {
@@ -459,7 +477,7 @@ small time {
     border: 0.063em solid rgb(109, 50, 79);
 }
 
-.events .event-n:hover .cancel-btn{
+.events .event-n:hover .cancel-btn {
     color: #fff;
     background-color: rgb(109, 50, 79);
     border: 0.063em solid #fff;
@@ -492,7 +510,7 @@ small time {
     margin: 0 1em;
 }
 
-.add-event-input input{
+.add-event-input input {
     width: 100%;
     height: 100%;
     outline: none;
@@ -516,11 +534,13 @@ small time {
     outline: none;
     border: none;
     border-bottom: 0.063em solid rgb(192, 156, 173);
+    padding-top: 1.5em;
     padding-bottom: 0.5em;
     font-size: 0.9rem;
     font-weight: 400;
     color: rgb(192, 156, 173);
-    margin-top: 0.5em;
+    margin-top: 0em;
+    margin-bottom: 0;
 }
 
 .add-event-input input:focus {
@@ -617,7 +637,7 @@ small time {
     overflow-y: scroll;
 }
 
-.send-error{
+.send-error {
     margin-top: 7em;
 }
 
@@ -634,78 +654,81 @@ small time {
 }
 
 
-.add-event-input input, .add-event-input select {
+.add-event-input input,
+.add-event-input select {
     width: auto;
     height: auto;
-  }
-  
-  .lab {
-    margin-top: .5rem;
-  }
-.modul{
-    margin-top:1rem;
 }
+
+.lab {
+    margin-top: .5rem;
+}
+
+.modul {
+    margin-top: 1rem;
+}
+
 .user-greeting {
     color: #f5f5f5;
     font-size: 1.5rem;
 }
-  
+
 
 /*Modal*/
 .modal {
     display: none;
     position: fixed;
-    z-index: 1; 
-    padding-top: 100px; 
+    z-index: 1;
+    padding-top: 100px;
     left: 0;
     top: 0;
-    width: 100%; 
+    width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
-  }
-  
-  .modal-content {
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
     background-color: #fefefe;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-  }
-  
-  .close {
+}
+
+.close {
     color: #aaaaaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
+}
+
+.close:hover,
+.close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
-  }
+}
 
-  .form{
+.form {
     display: grid;
-  }
+}
 
-  .form h1{
+.form h1 {
     font-size: 2em;
-  }
+}
 
-  .form *{
+.form * {
     margin: .5em;
-  }
+}
 
-  #head{
+#head {
     display: flex;
     flex-direction: row;
-  }
+}
 
-  #head div:nth-child(2){
+#head div:nth-child(2) {
     display: flex;
     flex-direction: column;
     background-color: transparent;
@@ -718,9 +741,9 @@ small time {
     color: #fefefe;
     text-align: center;
     font-size: 1rem;
-  }
+}
 
-  #head div:nth-child(2) select{
+#head div:nth-child(2) select {
     height: auto;
     margin-top: auto;
     width: 100%;
@@ -732,13 +755,14 @@ small time {
     text-align: center;
     font-size: 2rem;
     font-weight: 900;
-  }
-  #head div:nth-child(2) select option{
+}
+
+#head div:nth-child(2) select option {
     text-align: center;
     background-color: rgb(192, 156, 173);
     font-size: 1rem;
-  }
+}
 
-  .complete{
+.complete {
     text-align: center;
-  }
+}
