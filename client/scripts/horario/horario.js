@@ -244,13 +244,33 @@ actualCalendar();
 // Eventos (derecha)
 
 //Agregar funcionalidad para abrir y cerrar la ventana
+//Abrir la ventana
 addEventBtn.addEventListener("click", () => {
     addEventContainer.classList.toggle("active-n");
 });
 
-closeBtn.addEventListener("click", () => {
+//Cerrar la ventana
+function close(){
+    console.log('Cerrado');
+    const requeridos = document.querySelector("#errorMensaje");
+    const error = document.querySelector("#error-title");
+    const errorContainer = document.querySelector("#error");
+
+    addEventName.value = '';
+    addEventCarreer.value = '';
+    addEventModul.value = 'selectModul';
+    addEventLab.value = '1';
+    
+    if(!requeridos.classList.contains('hide-message')){
+        requeridos.classList.add('hide-message');
+        error.classList.add('hide-message');
+        errorContainer.classList.add('hide-message');
+    }
+    addEventSubmit.classList.remove("send-error");
     addEventContainer.classList.remove("active-n");
-});
+}
+
+closeBtn.addEventListener("click", close);
 
 // Mover el dia actual
 // No funcionó :'(
@@ -560,11 +580,7 @@ addEventSubmit.addEventListener("click", () => {
         });
     }
 
-    addEventContainer.classList.remove("active");
-    addEventTitle.value = "";
-    addEventName.value = "";
-    addEventCarreer = "";
-    addEventTime = "";
+    close();
 
     updateEvents(activeDay);
 
