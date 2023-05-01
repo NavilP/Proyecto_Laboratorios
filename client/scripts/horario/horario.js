@@ -63,6 +63,12 @@ const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 userName.textContent = id;
 
+const inicio = document.querySelector('#user');
+inicio.addEventListener("click", () =>{
+    console.log("chanza")
+    window.location.href = "./user.html?id=" + id;
+});
+
 //funciones propias 
 function doubledigit(num) {
     if (num < 10) {
