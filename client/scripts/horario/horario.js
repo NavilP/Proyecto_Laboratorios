@@ -58,7 +58,10 @@ const addEventSubmit = document.querySelector(".add-event-btn");
 // Recuperar el input de la nueva reservacion
 const addEventInput = document.querySelector(".add-event-input");
 
-
+const userName = document.querySelector(".user-name");
+const urlParams = new URLSearchParams(window.location.search);
+const id = urlParams.get('id');
+userName.textContent = id;
 
 //funciones propias 
 function doubledigit(num) {
@@ -411,7 +414,7 @@ function showPop(data) {
 const selectElement = document.querySelector("#labCal");
   selectElement.addEventListener('change', (event) => {
     updateEvents(activeDay);
-  });
+});
 
 
 // Mostrar los eventos del dia seleccionado
@@ -429,6 +432,7 @@ function updateEvents(date) {
             if (datosFil.length > 0) {
                 if(datosFil.length >= 8){
                     let p = document.createElement("p");
+                    p.className = "mesage";
                     p.textContent = "Reservaciones llenas";
                     eventsContainer.append(p);
                 }
@@ -472,36 +476,36 @@ function gettime(modul) {
     const hours = ['', ''];
     switch (modul) {
         case 'mod1':
-            hours[0] = '07:00:00';
-            hours[1] = '08:30:00';
+            hours[0] = '07:00:10';
+            hours[1] = '08:29:50';
             break;
         case 'mod2':
             hours[0] = '08:30:10';
-            hours[1] = '10:00:00';
+            hours[1] = '09:59:50';
             break;
         case 'mod3':
             hours[0] = '10:00:10';
-            hours[1] = '11:30:00';
+            hours[1] = '11:29:50';
             break;
         case 'mod4':
             hours[0] = '11:30:10';
-            hours[1] = '13:00:00';
+            hours[1] = '12:59:50';
             break;
         case 'mod5':
             hours[0] = '13:00:10';
-            hours[1] = '14:30:00';
+            hours[1] = '14:29:50';
             break;
         case 'mod6':
             hours[0] = '14:30:10';
-            hours[1] = '16:00:00';
+            hours[1] = '15:59:50';
             break;
         case 'mod7':
             hours[0] = '16:00:10';
-            hours[1] = '15:30:00';
+            hours[1] = '17:29:50';
             break;
         case 'mod8':
-            hours[0] = '15:30:10';
-            hours[1] = '19:00:00';
+            hours[0] = '17:30:10';
+            hours[1] = '18:59:50';
             break;
     }
     return hours;
