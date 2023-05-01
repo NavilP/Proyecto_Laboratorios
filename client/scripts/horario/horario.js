@@ -248,12 +248,14 @@ actualCalendar();
 
 //Agregar funcionalidad para abrir y cerrar la ventana
 //Abrir la ventana
-addEventBtn.addEventListener("click", () => {
+function open(){
     addEventContainer.classList.toggle("active-n");
-});
+}
+
+addEventBtn.addEventListener("click", open);
 
 //Cerrar la ventana
-function close() {
+function close(){
     console.log('Cerrado');
     const requeridos = document.querySelector("#errorMensaje");
     const error = document.querySelector("#error-title");
