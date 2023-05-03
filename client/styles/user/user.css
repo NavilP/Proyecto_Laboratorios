@@ -50,6 +50,7 @@ header {
 .user-greeting {
     color: #fff;
     font-size: 1.25em;
+    display: none;
 }
 
 .user-name {
@@ -219,4 +220,11 @@ footer {
 small time {
   display: inline-block;
   margin-right: 0.25em;
+}
+
+.welcome .name {
+    padding-top: 1em;
+    margin-bottom: 1em;
+    color: rgb(109, 50, 79);
+    margin-left: 2rem;
 }

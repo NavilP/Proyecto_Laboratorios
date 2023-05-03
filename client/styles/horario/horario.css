@@ -772,3 +772,11 @@ small time {
 .complete {
     text-align: center;
 }
+
+  .mesage {
+    text-align: center;
+  }
+   
+   .cancel-btn{
+    z-index: 1;
+   }
