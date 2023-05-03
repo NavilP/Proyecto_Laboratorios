@@ -676,7 +676,7 @@ small time {
 
 /*Modal*/
 .modal {
-    display: none;
+    display: visible;
     position: fixed;
     z-index: 1;
     padding-top: 100px;
@@ -691,10 +691,16 @@ small time {
 
 .modal-content {
     background-color: #fefefe;
+    font-size: 1.2em;
     margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
+    padding: 1.5em;
+    border: 1pt solid #888;
     width: 80%;
+    color: rgb(109, 50, 79);
+}
+
+.modal-content p {
+    margin-top: 0.5em;
 }
 
 .close {
