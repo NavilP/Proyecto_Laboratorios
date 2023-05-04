@@ -64,20 +64,19 @@ const id = urlParams.get('id');
 userName.textContent = id;
 var admin = false;
 const correo = id;
-axios.get(`http://localhost:8080/usertype/${correo}`)
-    .then(response => {
+async function checkadmin() {
+    try {
+        const response = await axios.get(`http://localhost:8080/usertype/${correo}`);
         const consult = response.data;
-        if (consult.length > 0) {
-            var admin = true;
-        }
-        return admin;
-    }
-    )
-    .catch(error => {
+        return consult.length > 0;
+    } catch (error) {
         console.log(error);
-    });
+        return false;
+    }
+}
 
-console.log(admin);
+
+console.log(checkadmin());
 
 //funciones propias 
 function doubledigit(num) {
@@ -105,26 +104,53 @@ prin.className = "principal";
 let mtitle = document.createElement("h1");
 mtitle.textContent = "Detalles";
 
+let usuario = document.createElement("p");
+let ususpan = document.createElement("span");
+ususpan.textContent = "Ocupado por: ";
+ususpan.className = "spanDisplay";
 let usu = document.createElement("p");
+usuario.appendChild(ususpan);
+usuario.appendChild(usu);
 
+let horariogen = document.createElement("p");
+let horariospan = document.createElement("span");
+horariospan.textContent = "Horario: ";
+horariospan.className = "spanDisplay";
 let horario = document.createElement("p");
+horariogen.appendChild(horariospan);
+horariogen.appendChild(horario);
 
+let descripciongen = document.createElement("p");
+let descripcionspan = document.createElement("span");
+descripcionspan.textContent = "Descripcion: ";
+descripcionspan.className = "spanDisplay";
 let descripcion = document.createElement("p");
+descripciongen.appendChild(descripcionspan);
+descripciongen.appendChild(descripcion); 
 
+let tipogen = document.createElement("p");
+let tipospan = document.createElement("span");
+tipospan.textContent = "Tipo: ";
+tipospan.className = "spanDisplay";
 let tipo = document.createElement("p");
+tipogen.appendChild(tipospan);
+tipogen.appendChild(tipo);
 
 modalC.appendChild(modalContent);
 prin.appendChild(mtitle);
-prin.appendChild(usu);
-prin.appendChild(horario);
-prin.appendChild(descripcion);
-prin.appendChild(tipo);
+prin.appendChild(usuario);
+prin.appendChild(horariogen);
+prin.appendChild(descripciongen);
+prin.appendChild(tipogen);
 modalC.appendChild(prin);
 modal.appendChild(modalC);
 document.body.appendChild(modal);
+
 modalContent.addEventListener("click", () => {
-    modal.style.display = "visible";
+    modal.style.display = "none";
 });
+
+
 
 
 let today = new Date();
@@ -417,8 +443,8 @@ function showPop(data) {
         eve.addEventListener("click", function () {
             document.querySelector("#myModal").style.display = "block";
             usu.textContent = data[i].usuario;
-            horario.textContent = data[i].startTime + "-" + roundTime(data[i].endTime);
-            descripcion.textContent = data[i].descripcion;
+            horario.textContent =  data[i].startTime + " - " + roundTime(data[i].endTime);
+            descripcion.textContent =  data[i].descripcion;
             tipo.textContent = data[i].tipo;
             console.log(data[i]);
         })
@@ -451,6 +477,7 @@ function updateEvents(date) {
     axios.get(`http://localhost:8080/reserva/${s}`)
         .then(response => {
             const datos = response.data;
+            const admin = checkadmin();
             const datosFil = datos.filter(dato => dato.numLab == labSearch);
             if (datosFil.length > 0) {
                 if (datosFil.length >= 8) {
@@ -460,26 +487,27 @@ function updateEvents(date) {
                     eventsContainer.append(p);
                 }
                 for (var k in datosFil) {
+                    if (datosFil[k].canceled != 1){
                     let eveN = document.createElement("section");
                     eveN.className = "event-n";
                     let h3 = document.createElement("h3");
                     h3.className = "event-title";
-                    h3.textContent = datos[k].descripcion;
+                    h3.textContent = datosFil[k].descripcion;
                     let p = document.createElement("p");
                     p.className = "event-time";
-                    p.textContent = datos[k].startTime + "-" + roundTime(datos[k].endTime);
+                    p.textContent = datosFil[k].startTime + "-" + roundTime(datos[k].endTime);
                     let time = document.createElement("time");
                     p.appendChild(time);
                     eveN.appendChild(h3);
                     eveN.appendChild(p);
-                    if ((datos[k].usuario == id) || admin == true) {
+                    if ((datos[k].usuario == id) || admin) {
                         let btn = document.createElement("button");
                         btn.className = "cancel-btn";
                         btn.textContent = "Cancelar reservacion";
                         eveN.appendChild(btn);
-                        cancelbtn(btn, datos[k].idreserva);
+                        cancelbtn(btn, datosFil[k].idreserva);
                     }
-                    eventsContainer.append(eveN);
+                    eventsContainer.append(eveN);}
                 }
                 showPop(datos);
             }
@@ -505,21 +533,28 @@ function cancelbtn(btn, id) {
         let text;
         if (confirm("Está seguro de cancelar su reservación?") == true) {
             text = "You pressed OK! " + id;
-            axios.delete(`http://localhost:8080/registro/${id}`)
+            axios.put(`http://localhost:8080/cancelar/${id}`)
+                .then(response => {
+                    alert(response.data);
+                    updateEvents(activeDay);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+            /*axios.delete(`http://localhost:8080/registro/${id}`)
                 .then(response => {
                     alert(response.data);
                     updateEvents(activeDay);
                 })
                 .catch(error => {
                     console.error(error);
-                });
+                });*/
         } else {
             text = "You canceled!";
         }
         console.log(text);
     })
 }
-
 
 function gettime(modul) {
     const hours = ['', ''];
@@ -596,8 +631,10 @@ addEventSubmit.addEventListener("click", () => {
         .catch(error => {
             console.log(error);
         });
-    //
-
+    addEventCarreer.value = "";
+    addEventName.value = "";
+    modul.value = "selectModul";
+    close();
 });
 
 

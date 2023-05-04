@@ -36,6 +36,8 @@ app.get("/usuario", (req, res) => {
     })
 });
 
+
+
 app.get("/usertype/:correo", (req, res) => {
     res.header('Access-Control-Allow-Origin', '*')
     res.header(
@@ -97,7 +99,7 @@ app.get("/reserva/:s", (req, res) => {
                 DATE_FORMAT(endDateTime, '%H:%i') AS endTime,
                 descripcion,
                 tipo, 
-                usuario, numLab
+                usuario, numLab, canceled
                 FROM reserva
                 WHERE DATE(startDateTime) = '${date}'  ORDER BY startDateTime;`
     db.query(q, (err, data) => {
@@ -158,6 +160,18 @@ app.delete('/registro/:id', (req, res) => {
     })
 });
 
+app.put('/cancelar/:id', (req, res) => {
+    const id = req.params.id;
+    console.log(id);
+    const q = 'UPDATE reserva SET canceled = "1" WHERE idreserva = ?';
+    db.query(q, [id],(err, data) => {
+        if (err) {
+            res.status(500).send('Error al cancelar la reservación');
+          } else {
+            res.send(`Reserva cancelada con exito`);
+          }
+    })
+});
 
 app.post('/guardar-datos', (req, res) => {
     console.log("si entro, no hago nada")
