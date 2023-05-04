@@ -96,7 +96,7 @@ modal.className = "modal";
 let modalC = document.createElement("div");
 modalC.className = "modal-content";
 let modalContent = document.createElement("span");
-modalContent.className = "close";
+modalContent.className = "close-m";
 modalContent.textContent = "x";
 
 let prin = document.createElement("div");
@@ -110,6 +110,9 @@ let usu = document.createElement("p");
 let horario = document.createElement("p");
 
 let descripcion = document.createElement("p");
+descripcion.textContent = "Esta es una prueba para añadir style";
+let imagenUsuario = document.createElement('img');
+imagenUsuario.src = '../../images/horario/user.png';
 
 let tipo = document.createElement("p");
 
@@ -118,12 +121,13 @@ prin.appendChild(mtitle);
 prin.appendChild(usu);
 prin.appendChild(horario);
 prin.appendChild(descripcion);
+prin.appendChild(imagenUsuario);
 prin.appendChild(tipo);
 modalC.appendChild(prin);
 modal.appendChild(modalC);
 document.body.appendChild(modal);
 modalContent.addEventListener("click", () => {
-    modal.style.display = "none";
+    modal.style.display = "visible";
 });
 
 
