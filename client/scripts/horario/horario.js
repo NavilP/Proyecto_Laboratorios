@@ -110,9 +110,6 @@ let usu = document.createElement("p");
 let horario = document.createElement("p");
 
 let descripcion = document.createElement("p");
-descripcion.textContent = "Esta es una prueba para añadir style";
-let imagenUsuario = document.createElement('img');
-imagenUsuario.src = '../../images/horario/user.png';
 
 let tipo = document.createElement("p");
 
@@ -121,7 +118,6 @@ prin.appendChild(mtitle);
 prin.appendChild(usu);
 prin.appendChild(horario);
 prin.appendChild(descripcion);
-prin.appendChild(imagenUsuario);
 prin.appendChild(tipo);
 modalC.appendChild(prin);
 modal.appendChild(modalC);
