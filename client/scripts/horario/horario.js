@@ -62,12 +62,22 @@ const userName = document.querySelector(".user-name");
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 userName.textContent = id;
+var admin = false;
+const correo = id;
+axios.get(`http://localhost:8080/usertype/${correo}`)
+    .then(response => {
+        const consult = response.data;
+        if (consult.length > 0) {
+            var admin = true;
+        }
+        return admin;
+    }
+    )
+    .catch(error => {
+        console.log(error);
+    });
 
-const inicio = document.querySelector('#user');
-inicio.addEventListener("click", () =>{
-    console.log("chanza")
-    window.location.href = "./user.html?id=" + id;
-});
+console.log(admin);
 
 //funciones propias 
 function doubledigit(num) {
@@ -421,7 +431,7 @@ function roundTime(time) {
     const roundedMinutes = Math.ceil(minutes / 10) * 10;
     const roundedHours = hours + Math.floor((minutes + roundedMinutes) / 60);
     return `${roundedHours.toString().padStart(2, '0')}:${(roundedMinutes % 60).toString().padStart(2, '0')}`;
-  }
+}
 
 
 const selectElement = document.querySelector("#labCal");
@@ -462,7 +472,7 @@ function updateEvents(date) {
                     p.appendChild(time);
                     eveN.appendChild(h3);
                     eveN.appendChild(p);
-                    if (datos[k].usuario == id) {
+                    if ((datos[k].usuario == id) || admin == true) {
                         let btn = document.createElement("button");
                         btn.className = "cancel-btn";
                         btn.textContent = "Cancelar reservacion";

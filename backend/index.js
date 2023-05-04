@@ -36,6 +36,23 @@ app.get("/usuario", (req, res) => {
     })
 });
 
+app.get("/usertype/:correo", (req, res) => {
+    res.header('Access-Control-Allow-Origin', '*')
+    res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+    )
+    console.log(req.params.correo);
+    const correo = req.params.correo;
+    const q = `SELECT * FROM usuario WHERE correo ='${correo}' and  tipo= 'admin';`
+    db.query(q, (err, data) => {
+        if (err) return res.json(err)
+        else{
+            return res.json(data)
+        }
+    })
+});
+
 app.post('/login', (req, res) => {
     const usuario = req.body.usuario;
     const contraseña = req.body.contraseña;
