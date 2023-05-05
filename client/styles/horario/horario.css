@@ -41,7 +41,7 @@ header {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     z-index: 999;
     display: flex;
     justify-content: space-between;
@@ -291,7 +291,7 @@ footer {
     position: fixed;
     bottom: 0;
     left: 0;
-    width: 100%;
+    width: 100vw;
     text-align: center;
     display: visible;
 }
@@ -596,7 +596,7 @@ small time {
 .new-event {
     position: absolute;
     bottom: 1.8em;
-    width: 100%;
+    width: 5em;
     height: 2.5em;
     margin-left: 23em;
     display: flex;
