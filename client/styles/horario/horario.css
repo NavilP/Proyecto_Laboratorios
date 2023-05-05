@@ -676,46 +676,62 @@ small time {
 
 /*Modal*/
 .modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    padding-top: 100px;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-content {
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
     background-color: #fefefe;
-    font-size: 1.2em;
     margin: auto;
-    padding: 1.5em;
-    border: 1pt solid #888;
-    width: 80%;
+    padding: 20px;
+    border: 1px solid #888;
     color: rgb(109, 50, 79);
-}
+    font-size: 1.1rem;
+    width: 80%;
+  }
 
-.modal-content p {
-    margin-top: 0.5em;
-}
+  .modal-content h1{
+    color: #fff;
+    background-color: rgb(109, 50, 79);
+    padding: 1.8rem;
+    font-size: 1.5rem;
+  }
 
-.close {
-    color: #aaaaaa;
+  .modal-content p {
+    margin: .6rem;
+  }
+
+  .spanDisplay{
+    font-weight: 700;
+  }
+  
+  /* The Close Button */
+  .close-m {
+    color: white;
     float: right;
-    font-size: 28px;
+    font-size: 2rem;
     font-weight: bold;
-}
+    margin-top: 1.3rem;
+    margin-right: 1.5rem;
 
-.close:hover,
-.close:focus {
-    color: #000;
+  }
+  
+  .close-m:hover,
+  .close-m:focus {
+    color: #aaaaaa;
     text-decoration: none;
     cursor: pointer;
-}
+  }
 
 .form {
     display: grid;
@@ -777,6 +793,3 @@ small time {
     text-align: center;
   }
    
-   .cancel-btn{
-    z-index: 1;
-   }
