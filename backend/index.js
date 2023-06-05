@@ -2,8 +2,19 @@ import express from "express";
 import mysql from "mysql";
 import cors from "cors";
 import bodyParser from "body-parser";
+import cookieParser from 'cookie-parser';
+import path from "path";
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path'; 
 
 const app = express();
+app.use(cookieParser());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+app.use(express.static(join(__dirname, 'public')));
+
 const db = mysql.createConnection({
     host: 'localhost',
     user: 'admin1',
@@ -16,12 +27,53 @@ app.use(bodyParser.urlencoded({ extended:true}));
 app.use(express.json());
 //middleware 
 app.use(express.static('public'));
-
-app.use(cors());
+//app.use(express.static(path.join(__dirname, 'static')));
+//app.use(cors());
 
 app.get("/", (req, res) => {
     res.json("hello there");
 });
+
+app.get('/login', (req, res) => {
+  res.sendFile(__dirname + '/login.html');
+});
+
+app.post('/login', (req, res) => {
+  const usuario = req.body.username;
+  const contraseña = req.body.password;
+  db.query('SELECT * FROM usuario WHERE correo = ? AND contraseña = ?', [usuario, contraseña], (error, results) => {
+    if (error) {
+      throw error;
+    }
+    if (results.length > 0) {
+      // Almacenar información de sesión
+      res.cookie('sessionId', usuario);
+      res.redirect('/horario')
+    } else {
+      res.send('Usuario o contraseña incorrectos');
+    }
+  });
+});
+
+function requireLogin(req, res, next) {
+  const sessionId = req.cookies.sessionId;
+  if (sessionId) {
+    next();
+  } else {
+    // User does not have an active session, redirect to the login page
+    res.redirect('/login');
+  }
+}
+
+app.get('/horario', requireLogin, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/views/horario.html'));
+});
+
+
+app.get('/home', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/views/horario.html'));
+});
+
 
 app.get("/usuario", (req, res) => {
     res.header('Access-Control-Allow-Origin', '*')
@@ -37,25 +89,27 @@ app.get("/usuario", (req, res) => {
 });
 
 
-
-app.get("/usertype/:correo", (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header(
-    'Access-Control-Allow-Headers',
-    'Origin, X-Requested-With, Content-Type, Accept'
-    )
-    console.log(req.params.correo);
-    const correo = req.params.correo;
-    const q = `SELECT * FROM usuario WHERE correo ='${correo}' and  tipo= 'admin';`
-    db.query(q, (err, data) => {
-        if (err) return res.json(err)
-        else{
-            return res.json(data)
-        }
-    })
+app.get('/usertype/:correo', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  console.log(req.params.correo);
+  const correo = req.params.correo;
+  const q = `SELECT * FROM usuario WHERE correo ='${correo}' AND tipo = 'admin';`;
+  db.query(q, (err, data) => {
+    if (err) return res.json(err);
+    else {
+      if (data.length > 0) {
+        console.log("Es admin");
+        return res.send(true);
+      } else {
+        console.log("No es admin");
+        return res.send(false);
+      }
+    }
+  });
 });
 
-app.post('/login', (req, res) => {
+/*app.post('/login', (req, res) => {
     const usuario = req.body.usuario;
     const contraseña = req.body.contraseña;
     db.query('SELECT * FROM usuario WHERE correo = ? AND contraseña = ?', [usuario, contraseña], (error, results) => {
@@ -68,7 +122,7 @@ app.post('/login', (req, res) => {
         res.send('Usuario o contraseña incorrectos');
       }
     });
-});
+});*/
 
 app.get("/reservas", (req, res) => {
     res.header('Access-Control-Allow-Origin', '*')
