@@ -107,7 +107,24 @@ function obtenerTipoUsuario(correo) {
 }
 
 //Manejo de links
+obtenerTipoUsuario(sessionId)
+  .then(function () {
+    console.log(isAdminValue);
+    if (isAdminValue) {
+      const navLinks = document.getElementById("nav_links");
 
+      const adminDesk = document.createElement("li");
+
+      const newLink = document.createElement("a");
+      newLink.href = "http://localhost:8080/reglamento"; // Establece la URL del nuevo enlace
+      newLink.textContent = "Admin Desk"; // Establece el texto del enlace
+      adminDesk.appendChild(newLink);
+      navLinks.insertBefore(adminDesk, navLinks.children[0]);
+    }
+  })
+  .catch(function (error) {
+    console.error("Error:", error);
+  });
 
 let modal = document.createElement("div");
 modal.id = "myModal";
@@ -530,12 +547,12 @@ function updateEvents(date) {
                 // Aquí puedes hacer lo que quieras con el valor obtenido
                 console.log(isAdminValue); // Imprime el valor guardado en la variable externa
                 if (datos[k].usuario == sessionId || isAdminValue) {
-                    let btn = document.createElement("button");
-                    btn.className = "cancel-btn";
-                    btn.textContent = "Cancelar reservacion";
-                    eveN.appendChild(btn);
-                    cancelbtn(btn, datosFil[k].idreserva);
-                  }
+                  let btn = document.createElement("button");
+                  btn.className = "cancel-btn";
+                  btn.textContent = "Cancelar reservacion";
+                  eveN.appendChild(btn);
+                  cancelbtn(btn, datosFil[k].idreserva);
+                }
               })
               .catch(function (error) {
                 console.error("Error:", error);
@@ -694,5 +711,3 @@ addEventSubmit.addEventListener("click", () => {
   modul.value = "selectModul";
   close();
 });
-
-//salir, eliminar sesion
