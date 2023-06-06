@@ -70,10 +70,18 @@ app.get('/horario', requireLogin, (req, res) => {
 });
 
 
-app.get('/home', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public/views/horario.html'));
+app.get('/inicio', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/views/inicio.html'));
 });
 
+app.get('/myaccount', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/views/user.html'));
+});
+
+app.get('/logout', (req, res) => {
+  res.cookie('sessionId', '', { expires: new Date(0) });
+  res.redirect('/inicio');
+});
 
 app.get("/usuario", (req, res) => {
     res.header('Access-Control-Allow-Origin', '*')
