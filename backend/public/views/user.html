@@ -24,15 +24,8 @@
         
         <nav>
             <ul>
-                <li>
-                    <a href="#">Horario</a>
-                    <ul class="submenu">
-                        <li><a href="#">Laboratorio 1</a></li>
-                        <li><a href="#">Laboratorio 2</a></li>
-                    </ul>
-                </li>
-                <li><a href="http://localhost:8080/views/horario.html">Reservar</a></li>
-                <li><a href="http://localhost:8080/views/inicio.html">Salir</a></li>
+                <li><a href="http://localhost:8080/horario">Reservar</a></li>
+                <li><a href="http://localhost:8080/logout">Salir</a></li>
             </ul>
         </nav>
     </header>
@@ -40,14 +33,12 @@
     <main>
         <section class="welcome">
             <div class="user-profile"><img src="http://localhost:8080/images/user/user.png"></div>
-            <h1>Bienvenid@</h1>
-            <p class="name">ApellidoP ApellidoM Nombre(s) </p><br>
-            <div><p class="button"><a href="http://localhost:8080/views/horario.html">Reservar</a></p></div>
+            <h1>Tu panel <br> de usuario</h1><br>
         </section>
         <section class="options">
-            <section class="option-btn">
+            <button id='reservas_btn' class="option-btn">
                 <p><a href="#">Consulta tus reservaciones</a></p>
-            </section>
+            </button>
             <section class="option-btn">
                 <p><a href="http://localhost:8080/views/reglamento.html">Consulta el reglamento</a></p>
             </section>

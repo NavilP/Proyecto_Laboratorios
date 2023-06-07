@@ -59,7 +59,6 @@ const addEventSubmit = document.querySelector(".add-event-btn");
 const addEventInput = document.querySelector(".add-event-input");
 
 const userName = document.querySelector(".user-name");
-var admin = false;
 
 function getCookieValue(cookieName) {
   var name = cookieName + "=";
