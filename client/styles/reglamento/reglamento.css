@@ -12,9 +12,12 @@ body {
     font-family: "Raleway", Tahoma, Arial, sans-serif;
     font-size: .9em;
 }
-body{
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     box-sizing: border-box;
-    background-image: url(../../images/upiit.jpeg);
+    background-image: url(../../images/upiitf.jpg);
     background-repeat: no-repeat;
     background-size: 100%;
 }
@@ -27,6 +30,7 @@ body{
 }
 
 header {
+    height: 80px;
     background-color: rgba(0, 0, 0, 0.5); 
     position: fixed;
     top: 0;
@@ -98,6 +102,17 @@ main {
     text-align: center;
 }
 
+.center-background {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 2em 0;
+    min-height: calc(100vh - 2em);
+    margin-top: 600px;
+    margin-bottom: 400px;
+}
+
 .users{
     width: 12vw;
 }
@@ -109,20 +124,33 @@ main {
     color: rgb(109, 50, 79);
 }
 
-.description {
+.card.active .description, .card.active .list-description {
+    display: block;
+}
+
+
+.description, .list-description{
     display: none;
     font-size: 0.6em;
-    text-align: left;
+    text-align: justify;
+    color: #000000;
+}
+
+.description, .list-description {
+    display: none;
+    font-size: 0.6em;
+    text-align: justify;
     color: #000000;
 }
 
 .description p ul li{
     font-size: 0.6em;
-    text-align: left;
+    text-align: justify;
     color: #000000;
 }
 
 footer {
+    height: 55px;
     background-color: rgb(109, 50, 79);
     color: #fff;
     padding: 15px;
