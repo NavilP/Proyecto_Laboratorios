@@ -1,15 +1,19 @@
 <!DOCTYPE html>
 <html lang="es-MX">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/reset.css">
     <link rel="stylesheet" href="styles/inicio/inicio.css">
+    <link rel="stylesheet" href="styles/inicio/horario.css">
+    <script src="scripts/horario/horario.js"></script>
     <title>Home</title>
 </head>
+
 <body>
-    
+
     <div class="shape"></div>
     <div class="login-btn"></div>
 
@@ -27,7 +31,61 @@
     </header>
 
     <main>
+        <div class="container">
+            <div class="left">
+                <div class="calendar">
+                    <div class="today">
+                        <div class="goto">
+                            <input type="text" placeholder="mm/aaaa" class="date-input">
+                            <button class="goto-btn">Ir</button>
+                        </div>
+                        <button class="today-btn">Hoy</button>
+                    </div>
+    
+                    <div class="month">
+                        <span class="prev">&#60;</span>
+                        <p class="date"></p>
+                        <span class="next">&#62;</span>
+                    </div>
+    
+                    <div class="week-days">
+                        <div><p>D</p></div>
+                        <div><p>L</p></div>
+                        <div><p>M</p></div>
+                        <div><p>M</p></div>
+                        <div><p>J</p></div>
+                        <div><p>V</p></div>
+                        <div><p>S</p></div>
+                    </div>
 
+                    <div class="days">
+                        
+                    </div>
+    
+                </div>
+            </div>
+
+            <section class="right">
+                <div id="head">
+                    <section class="today-date">
+                        <p class="event-day">Miercoles</p>
+                        <p class="event-date">14 Abril 2023</p>
+                    </section>
+                    <div>
+                        <span>Laboratorio</span>
+                        <select name="labCal" id="labCal">
+                            <option value="1"><span>1</span></option>
+                            <option value="2"><span>2</span></option>
+                        </select>
+                    </div>
+                </div>
+    
+                <section class="events">
+                    
+                </section>
+                
+            </section>
+        </div>
     </main>
 
     <footer>
@@ -37,4 +95,5 @@
         <p>Unidad Profesional Interdisplinaria de Ingeniería Campus Tlaxcala</p>
     </footer>
 </body>
+
 </html>
