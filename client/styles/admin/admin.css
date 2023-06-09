@@ -1,0 +1,252 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;500&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+*::selection {
+    background-color: transparent;
+}
+
+body {
+    font-family: "Raleway", Tahoma, Arial, sans-serif;
+    font-size: .9em;
+    display: flex;
+}
+
+.logo {
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.logo img{
+    height: 10em;
+}
+
+nav {
+    background-color: rgb(109, 50, 79);
+    width: 20%;
+    height: 100vh;
+    padding: 2em;
+    color: #fff;
+    position: fixed;
+}
+
+nav ul {
+    width: 10em;
+}
+
+nav ul li {
+    width: 16em;
+    list-style: none;
+    display: flex;
+    height: 4em;
+    border-radius: 2em;
+    align-items: center;
+    padding: 1em;
+    padding-left: 2em;
+    margin-bottom: 1em;
+    cursor: pointer;
+}
+
+nav ul li i {
+    margin-right: 1.5em;
+}
+
+nav ul li:hover {
+    background-color: rgb(156, 74, 114);
+}
+
+main {
+    width: 80%;
+    padding: 3em;
+    margin-left: 20em;
+}
+
+main h1 {
+    font-weight: bold;
+    font-size: 2em;
+    margin-bottom: 1em;
+}
+
+.today {
+    width: 20%;
+    text-align: right;
+    height: 1.5em;
+    margin-top: 0.7em;
+    margin-bottom: 2em;
+    gap: 0.5em;
+    color: rgb(204, 191, 197);
+    position: absolute;
+    margin-left: 49em;
+    transform: translateY(-4em);
+}
+
+.today .goto {
+    display: flex;
+    align-items: center;
+    border-radius: 0.5em;
+    overflow: hidden;
+    border: 0.063em solid rgb(204, 191, 197);
+}
+
+.today .goto input {
+    width: 100%;
+    height: 2em;
+    outline: none;
+    border: none;
+    border-radius: 0.5em;
+    padding: 0 1.25em;
+    color: rgb(109, 50, 79);
+    ;
+    border-radius: 0.5em;
+}
+
+.today button {
+    padding: 0.5em 0.625em;
+    border: 0.063em solid rgb(204, 191, 197);
+    border-radius: 0.5em;
+    background-color: transparent;
+    cursor: pointer;
+    color: rgb(102, 97, 99);
+}
+
+.today button:hover {
+    color: #fff;
+    background-color: rgb(109, 50, 79);
+}
+
+.today .goto button {
+    border: none;
+    border-left: 0.063em solid rgb(204, 191, 197);
+    border-radius: 0;
+}
+
+
+table {
+    width: 100%;
+    border-collapse:collapse;
+}
+
+table thead {
+    width: 100%;
+}
+
+table thead tr {
+    border-radius: 3em;
+    background-color: rgb(223, 223, 223);
+}
+
+table thead tr th {
+    padding: 1em;
+}
+
+table tbody tr {
+    cursor: pointer;
+    width: 100%;
+}
+
+table tbody tr td{
+    margin-top: 1em;
+    padding: 1em;
+}
+
+table tbody tr:hover {
+    background-color: rgb(156, 74, 114);
+    color: #fff;
+    box-shadow: 0.3em 0.2em 0.3em 0.2em rgba(50, 50, 51, 0.3);
+}
+
+.hide {
+    display: none;
+}
+
+form {
+    border-radius: 1.5em;
+    border: 1pt solid rgb(109, 50, 79);
+    padding: 2em;
+    width: 35%;
+    display: grid;
+    align-items: center;
+    height: 35em;
+}
+
+form h2 {
+    margin-bottom: 2em;
+}
+
+form input {
+    width: 80%;
+    margin-bottom: 1em;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    font-family: "Raleway", Tahoma, Arial, sans-serif;
+    border-bottom: 1pt solid rgb(109, 50, 79);
+    padding: 1em 0;
+}
+
+form button {
+    background-color: rgb(109, 50, 79);
+    border: none;
+    border-radius: 2em;
+    color: #fff;
+    padding: 1em;
+    width: 50%;
+}
+
+.content {
+    display: flex;
+}
+
+.search-schedule {
+    width: 60%;
+    max-height: 35em;
+    margin-left: 3em;
+    background-color: rgb(109, 50, 79);
+    border-radius: 1.5em;
+    padding: 2em;
+    color: #fff;
+    overflow-y: scroll;
+}
+
+.search-schedule h2 {
+    margin-bottom: 2em;
+}
+
+.search-schedule input {
+    height: 2.5em;
+    border-radius: 0.5em;
+    background-color: #fff;
+    border: none;
+    margin-right: 1em;
+    padding: 1em;
+    outline: none;
+}
+
+.search-schedule .search-results {
+    margin-top: 2em;
+}
+
+.search-schedule .search-results p {
+    height: 2.5em;
+    padding: 1em 0 1em 0.5em;
+}
+
+.search-schedule .search-results p:hover {
+    background-color: #fff;
+    color: rgb(109, 50, 79);
+}
+
+.search-schedule .search-results .day {
+    padding: 0;
+    padding-top: 0.5em;
+    border-top: 1pt solid #fff;
+    margin-top: 1em;
+}
+
+.search-schedule .search-results .day:hover {
+    background-color: transparent;
+    color: #fff;
+}
