@@ -115,7 +115,7 @@ obtenerTipoUsuario(sessionId)
       const adminDesk = document.createElement("li");
 
       const newLink = document.createElement("a");
-      newLink.href = "http://localhost:8080/reglamento"; // Establece la URL del nuevo enlace
+      newLink.href = "http://localhost:8080/admin"; // Establece la URL del nuevo enlace
       newLink.textContent = "Admin Desk"; // Establece el texto del enlace
       adminDesk.appendChild(newLink);
       navLinks.insertBefore(adminDesk, navLinks.children[0]);
@@ -209,7 +209,7 @@ const months = [
 const eventsArr = [
   {
     day: 15,
-    month: 04,
+    month: 4,
     year: 2023,
     events: [
       {
