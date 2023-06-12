@@ -1,188 +1,275 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="http://localhost:8080/styles/reset.css">
-    <link rel="stylesheet" href="http://localhost:8080/styles/admin/admin.css">
-    <script src="http://localhost:8080/scripts/admin/admin.js" defer></script>
-    <title>Administrador</title>
-</head>
-<body>
-    <nav>
-        <div class="logo">
-            <img src="http://localhost:8080/images/logo.png" alt="Logo">
-        </div>
-
-        <ul>
-            <li class="options one"><i class="fa-solid fa-laptop fa-xl"></i>Reservaciones</li>
-            <li class="options two"><i class="fa-solid fa-user fa-xl"></i>Usuarios</li>
-            <li class="options three"><i class="fa-solid fa-calendar-days fa-xl"></i>Horarios</li>
-            <li class="options four"><i class="fa-solid fa-ban fa-xl"></i>Cancelaciones</li>
-        </ul>
-    </nav>
-    <main>
-        <section class="option">
-            
-            <h1 id="title">Reservaciones</h1>
-
-            <div class="today">
-                <div class="goto">
-                    <input type="text" placeholder="mm/aaaa" class="date-input">
-                    <button class="goto-btn">Ir</button>
-                </div>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+            integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet"
+            href="http://localhost:8080/styles/admin/admin.css">
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+            crossorigin="anonymous">
+        <link rel="stylesheet" href="http://localhost:8080/styles/reset.css">
+        <script src="http://localhost:8080/scripts/admin/admin.js" defer></script>
+        <title>Administrador</title>
+    </head>
+    <body>
+        <nav>
+            <div class="logo">
+                <img src="http://localhost:8080/images/logo.png" alt="Logo">
             </div>
 
-            <section class="content">
-            
-            <table class="results">
-                <thead>
-                    <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Usuario</th>
-                        <th scope="col">Tipo</th>
-                        <th scope="col">Laboratorio</th>
-                        <th scope="col">Hora de entrada</th>
-                        <th scope="col">Hora de salida</th>
-                        <th scope="col">Descripcion</th>
-                        <th scope="col">Cancelada</th>
-                    </tr>
-                </thead>
+            <ul>
+                <li class="options one"><i class="fa-solid fa-laptop fa-xl"></i>Reservaciones</li>
+                <li class="options two"><i class="fa-solid fa-user fa-xl"></i>Usuarios</li>
+                <li class="options three"><i
+                        class="fa-solid fa-calendar-days fa-xl"></i>Horarios</li>
+                <li class="options four"><i class="fa-solid fa-ban fa-xl"></i>Cancelaciones</li>
+            </ul>
+        </nav>
+        <main>
+            <section class="option">
 
-                <tbody>
-                    <tr>
-                        <td class="id-reserva">1</td>
-                        <td class="user">navil@gmail.com</td>
-                        <td class="type">Personal</td>
-                        <td class="lab">1</td>
-                        <td class="start">07:00:10</td>
-                        <td class="end">08:29:50</td>
-                        <td class="description">Reservación</td>
-                        <td class="cancel">No</td>
-                    </tr>
+                <h1 id="title">Reservaciones</h1>
 
-                    <tr>
-                        <td class="id-reserva">1</td>
-                        <td class="user">navil@gmail.com</td>
-                        <td class="type">Personal</td>
-                        <td class="lab">1</td>
-                        <td class="start">07:00:10</td>
-                        <td class="end">08:29:50</td>
-                        <td class="description">Reservación</td>
-                        <td class="cancel">No</td>
-                    </tr>
+                <div class="today">
+                    <div class="goto">
+                        <input type="text" placeholder="mm/aaaa"
+                            class="date-input">
+                        <button class="goto-btn">Ir</button>
+                    </div>
+                </div>
 
-                    <tr>
-                        <td class="id-reserva">1</td>
-                        <td class="user">navil@gmail.com</td>
-                        <td class="type">Personal</td>
-                        <td class="lab">1</td>
-                        <td class="start">07:00:10</td>
-                        <td class="end">08:29:50</td>
-                        <td class="description">Reservación</td>
-                        <td class="cancel">No</td>
-                    </tr>
+                <section class="content">
 
+                    <table class="results">
+                        <thead>
+                            <tr>
+                                <th scope="col">ID</th>
+                                <th scope="col">Usuario</th>
+                                <th scope="col">Tipo</th>
+                                <th scope="col">Laboratorio</th>
+                                <th scope="col">Hora de entrada</th>
+                                <th scope="col">Hora de salida</th>
+                                <th scope="col">Descripcion</th>
+                                <th scope="col">Cancelada</th>
+                            </tr>
+                        </thead>
 
-                    <tr>
-                        <td class="id-reserva">1</td>
-                        <td class="user">navil@gmail.com</td>
-                        <td class="type">Personal</td>
-                        <td class="lab">1</td>
-                        <td class="start">07:00:10</td>
-                        <td class="end">08:29:50</td>
-                        <td class="description">Reservación</td>
-                        <td class="cancel">No</td>
-                    </tr>
+                        <tbody>
+                            <tr>
+                                <td class="id-reserva">1</td>
+                                <td class="user">navil@gmail.com</td>
+                                <td class="type">Personal</td>
+                                <td class="lab">1</td>
+                                <td class="start">07:00:10</td>
+                                <td class="end">08:29:50</td>
+                                <td class="description">Reservación</td>
+                                <td class="cancel">No</td>
+                            </tr>
 
-                    <tr>
-                        <td class="id-reserva">1</td>
-                        <td class="user">navil@gmail.com</td>
-                        <td class="type">Personal</td>
-                        <td class="lab">1</td>
-                        <td class="start">07:00:10</td>
-                        <td class="end">08:29:50</td>
-                        <td class="description">Reservación</td>
-                        <td class="cancel">No</td>
-                    </tr>
+                            <tr>
+                                <td class="id-reserva">1</td>
+                                <td class="user">navil@gmail.com</td>
+                                <td class="type">Personal</td>
+                                <td class="lab">1</td>
+                                <td class="start">07:00:10</td>
+                                <td class="end">08:29:50</td>
+                                <td class="description">Reservación</td>
+                                <td class="cancel">No</td>
+                            </tr>
 
-                    <tr>
-                        <td class="id-reserva">1</td>
-                        <td class="user">navil@gmail.com</td>
-                        <td class="type">Personal</td>
-                        <td class="lab">1</td>
-                        <td class="start">07:00:10</td>
-                        <td class="end">08:29:50</td>
-                        <td class="description">Reservación</td>
-                        <td class="cancel">No</td>
-                    </tr>
+                            <tr>
+                                <td class="id-reserva">1</td>
+                                <td class="user">navil@gmail.com</td>
+                                <td class="type">Personal</td>
+                                <td class="lab">1</td>
+                                <td class="start">07:00:10</td>
+                                <td class="end">08:29:50</td>
+                                <td class="description">Reservación</td>
+                                <td class="cancel">No</td>
+                            </tr>
 
-                    <tr>
-                        <td class="id-reserva">1</td>
-                        <td class="user">navil@gmail.com</td>
-                        <td class="type">Personal</td>
-                        <td class="lab">1</td>
-                        <td class="start">07:00:10</td>
-                        <td class="end">08:29:50</td>
-                        <td class="description">Reservación</td>
-                        <td class="cancel">No</td>
-                    </tr>
+                            <tr>
+                                <td class="id-reserva">1</td>
+                                <td class="user">navil@gmail.com</td>
+                                <td class="type">Personal</td>
+                                <td class="lab">1</td>
+                                <td class="start">07:00:10</td>
+                                <td class="end">08:29:50</td>
+                                <td class="description">Reservación</td>
+                                <td class="cancel">No</td>
+                            </tr>
 
-                    <tr>
-                        <td class="id-reserva">1</td>
-                        <td class="user">navil@gmail.com</td>
-                        <td class="type">Personal</td>
-                        <td class="lab">1</td>
-                        <td class="start">07:00:10</td>
-                        <td class="end">08:29:50</td>
-                        <td class="description">Reservación</td>
-                        <td class="cancel">No</td>
-                    </tr>
+                            <tr>
+                                <td class="id-reserva">1</td>
+                                <td class="user">navil@gmail.com</td>
+                                <td class="type">Personal</td>
+                                <td class="lab">1</td>
+                                <td class="start">07:00:10</td>
+                                <td class="end">08:29:50</td>
+                                <td class="description">Reservación</td>
+                                <td class="cancel">No</td>
+                            </tr>
 
-                    <tr>
-                        <td class="id-reserva">1</td>
-                        <td class="user">navil@gmail.com</td>
-                        <td class="type">Personal</td>
-                        <td class="lab">1</td>
-                        <td class="start">07:00:10</td>
-                        <td class="end">08:29:50</td>
-                        <td class="description">Reservación</td>
-                        <td class="cancel">No</td>
-                    </tr>
+                            <tr>
+                                <td class="id-reserva">1</td>
+                                <td class="user">navil@gmail.com</td>
+                                <td class="type">Personal</td>
+                                <td class="lab">1</td>
+                                <td class="start">07:00:10</td>
+                                <td class="end">08:29:50</td>
+                                <td class="description">Reservación</td>
+                                <td class="cancel">No</td>
+                            </tr>
 
-                    <tr>
-                        <td class="id-reserva">1</td>
-                        <td class="user">navil@gmail.com</td>
-                        <td class="type">Personal</td>
-                        <td class="lab">1</td>
-                        <td class="start">07:00:10</td>
-                        <td class="end">08:29:50</td>
-                        <td class="description">Reservación</td>
-                        <td class="cancel">No</td>
-                    </tr>
+                            <tr>
+                                <td class="id-reserva">1</td>
+                                <td class="user">navil@gmail.com</td>
+                                <td class="type">Personal</td>
+                                <td class="lab">1</td>
+                                <td class="start">07:00:10</td>
+                                <td class="end">08:29:50</td>
+                                <td class="description">Reservación</td>
+                                <td class="cancel">No</td>
+                            </tr>
 
-                    <tr>
-                        <td class="id-reserva">1</td>
-                        <td class="user">navil@gmail.com</td>
-                        <td class="type">Personal</td>
-                        <td class="lab">1</td>
-                        <td class="start">07:00:10</td>
-                        <td class="end">08:29:50</td>
-                        <td class="description">Reservación</td>
-                        <td class="cancel">No</td>
-                    </tr>
-                    
-                </tbody>
-            </table>
-            
-            
+                            <tr>
+                                <td class="id-reserva">1</td>
+                                <td class="user">navil@gmail.com</td>
+                                <td class="type">Personal</td>
+                                <td class="lab">1</td>
+                                <td class="start">07:00:10</td>
+                                <td class="end">08:29:50</td>
+                                <td class="description">Reservación</td>
+                                <td class="cancel">No</td>
+                            </tr>
+
+                            <tr>
+                                <td class="id-reserva">1</td>
+                                <td class="user">navil@gmail.com</td>
+                                <td class="type">Personal</td>
+                                <td class="lab">1</td>
+                                <td class="start">07:00:10</td>
+                                <td class="end">08:29:50</td>
+                                <td class="description">Reservación</td>
+                                <td class="cancel">No</td>
+                            </tr>
+
+                            <tr>
+                                <td class="id-reserva">1</td>
+                                <td class="user">navil@gmail.com</td>
+                                <td class="type">Personal</td>
+                                <td class="lab">1</td>
+                                <td class="start">07:00:10</td>
+                                <td class="end">08:29:50</td>
+                                <td class="description">Reservación</td>
+                                <td class="cancel">No</td>
+                            </tr>
+
+                            <tr>
+                                <td class="id-reserva">1</td>
+                                <td class="user">navil@gmail.com</td>
+                                <td class="type">Personal</td>
+                                <td class="lab">1</td>
+                                <td class="start">07:00:10</td>
+                                <td class="end">08:29:50</td>
+                                <td class="description">Reservación</td>
+                                <td class="cancel">No</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </section>
 
             </section>
-            
-        </section>
-        
-    </main>
-</body>
+            <div class="modal fade" id="exampleModal" tabindex="-1"
+                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Modal
+                                title</h5>
+                            <button type="button" class="btn-close"
+                                data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="w-100" id="edits">
+                                <label for="usuario">Usuario:</label>
+                                <input type="text" id="usuario" name="usuario"
+                                disabled><br><br>
+
+                                <label for="tipo">Tipo:</label>
+                                <input type="text" id="tipo" name="tipo"
+                                    required><br><br>
+
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="laboratorio">Laboratorio:</label>
+                                            <input type="text" id="laboratorio"
+                                                name="laboratorio" disabled><br><br>
+                                        </div>
+                                        <div class="col">
+                                            <label for="fecha">Fecha:</label>
+                                            <input type="text" id="fecha"
+                                                name="fecha"
+                                                disabled><br><br>
+                                        </div>
+                                        <div class="w-100"></div>
+                                        <div class="col">
+                                            <label for="horaEntrada">Hora de
+                                                entrada:</label>
+                                            <input type="text" id="horaEntrada"
+                                                name="horaEntrada"  disabled><br><br>
+                                        </div>
+                                        <div class="col">
+                                            <label for="horaSalida">Hora de
+                                                salida:</label>
+                                            <input type="text" id="horaSalida"
+                                                name="horaSalida"  disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div class="row">
+                                    <div class="col-8"> <label for="descripcion">Descripción:</label>
+                                        <input type="text" id="descripcion"
+                                            name="descripcion" required><br><br></div>
+                                    <div class="col-4">
+                                        <label for="cancelada">Cancelada:</label>
+                                        <select id="cancelada" name="cancelada"
+                                            required>
+                                            <option value="1">Si</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
+                                    <br><br>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary"
+                                data-bs-dismiss="modal">Close</button>
+                            <button type="submit" id="editSub" form="edits" class="btn btn-primary">Save
+                                changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+            crossorigin="anonymous"></script>
+    </body>
 </html>

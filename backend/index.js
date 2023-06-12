@@ -146,13 +146,36 @@ app.get("/reservas", (req, res) => {
     'Access-Control-Allow-Headers',
     'Origin, X-Requested-With, Content-Type, Accept'
     )
-    const q = "SELECT * FROM reserva;"
+    const q = "SELECT * FROM controllabs.reserva ORDER BY startDateTime;"
     db.query(q, (err, data) => {
         if (err) return res.json(err)
         return res.json(data)
     })
 });
 
+app.get('/reservas/:id', (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  const q = 'SELECT * FROM reserva WHERE idreserva = ?';
+  db.query(q, [id], (err, data) => {
+    if (err) return res.json(err);
+    return res.json(data);
+  });
+});
+
+app.put('/Editreservas/:id', (req, res) => {
+  console.log("entro");
+  const id = req.params.id; // Obtén el ID de la reserva desde los parámetros de la URL
+  const { tipo, descripcion, cancelada } = req.body;
+  const q = 'UPDATE reserva SET tipo = ?, descripcion = ?, cancelada = ? WHERE id = ?';
+  db.query(q, [tipo, descripcion, cancelada, id],(err, data) => {
+      if (err) {
+          res.status(500).send('Error al actualizar la reservación');
+        } else {
+          res.send(`Reserva actualizada con exito`);
+        }
+  })
+});
 
 app.get("/reserva/:s", (req, res) => {
     res.header('Access-Control-Allow-Origin', '*')

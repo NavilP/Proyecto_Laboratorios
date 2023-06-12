@@ -254,4 +254,32 @@ form button {
 body > nav:nth-child(1) {
     padding-left: 0px;
    }
-   
+
+nav {
+    /* padding: 2em; */
+    padding: 2rem;
+  }
+  
+  nav ul li {
+    /* width: 16em; */
+    width: 100%;
+  }
+  
+  nav ul {
+    /* width: 10em; */
+    width: 100%;
+  }
+  
+  /* Elemento | http://localhost:8080/admin */
+  
+  body > main:nth-child(2) {
+    margin-left: 20%;
+  }
+  
+  /* Elemento | http://localhost:8080/admin */
+  
+  .today {
+    /* margin-left: 1px; */
+    margin-left: 50%;
+  }
+  
