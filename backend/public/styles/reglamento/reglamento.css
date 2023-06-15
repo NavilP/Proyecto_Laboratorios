@@ -104,9 +104,10 @@ main {
 
 .card{
     position: relative;
-    width: 30%;
+    width: 23%;
     font-size: 1.5em;
     color: rgb(109, 50, 79);
+    margin: 1%;
 }
 
 .description {

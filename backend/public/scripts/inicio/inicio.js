@@ -58,7 +58,7 @@ const months = [
 const eventsArr = [
     {
         day: 15,
-        month: 04,
+        month: 4,
         year: 2023,
         events: [
             {
@@ -322,7 +322,7 @@ function updateEvents(date) {
     //<section class="events"></section>
     console.log(doubledigit(date) + " " + doubledigit(month + 1) + " " + year);
     const s = year + '-' + doubledigit(month + 1) + '-' + doubledigit(date)
-    axios.get(`http://localhost:3000/reserva/${s}`)
+    axios.get(`http://localhost:8080/reserva/${s}`)
         .then(response => {
             const datos = response.data;
             console.log(datos);
@@ -375,7 +375,7 @@ function cancelbtn(btn, id) {
         let text;
         if (confirm("Está seguro de cancelar su reservación?") == true) {
             text = "You pressed OK! " + id;
-            axios.put(`http://localhost:3000/cancelar/${id}`)
+            axios.put(`http://localhost:8080/cancelar/${id}`)
                 .then(response => {
                     alert(response.data);
                     updateEvents(activeDay);
@@ -383,7 +383,7 @@ function cancelbtn(btn, id) {
                 .catch(error => {
                     console.log(error);
                 });
-            /*axios.delete(`http://localhost:3000/registro/${id}`)
+            /*axios.delete(`http://localhost:8080/registro/${id}`)
                 .then(response => {
                     alert(response.data);
                     updateEvents(activeDay);
