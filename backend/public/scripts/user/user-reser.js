@@ -102,4 +102,4 @@ function reservaciones(user) {
 }
 
 
-reservaciones(sessionId);
+reservaciones(usuario);
