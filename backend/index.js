@@ -239,6 +239,29 @@ app.get("/reserva/:s", (req, res) => {
     })
 });
 
+app.get("/reservauser/:u", (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header(
+  'Access-Control-Allow-Headers',
+  'Origin, X-Requested-With, Content-Type, Accept'
+  )
+  console.log(req.params.u);
+  const user = req.params.u;
+  const q = `SELECT idreserva, 
+              startDateTime,
+              DATE_FORMAT(startDateTime, '%H:%i') AS startTime, 
+              endDateTime,
+              DATE_FORMAT(endDateTime, '%H:%i') AS endTime,
+              descripcion,
+              tipo, 
+              usuario, numLab, canceled
+              FROM reserva
+              WHERE usuario = '${user}'  ORDER BY startDateTime;`
+  db.query(q, (err, data) => {
+      if (err) return res.json(err)
+      return res.json(data)
+  })
+});
 
 app.post("/personas", (req, res) => {
     console.log('si pero no');

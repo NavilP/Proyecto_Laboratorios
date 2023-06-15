@@ -1,3 +1,5 @@
+let usuario = 'navil@gmail.com';
+
 function obtenerFecha(s) {
     const fecha = new Date(s);
     const anio = fecha.getFullYear();
@@ -23,15 +25,22 @@ function roundTime(time) {
         .padStart(2, "0")}`;
 }
 // Funcionalidad para recuperar reservaciones
-function reservaciones(tableContainer) {
+function reservaciones(user) {
     axios
-        .get("http://localhost:8080/reservas", {})
+        .get(`http://localhost:8080/reservauser/${user}`)
         .then((response) => {
+            // Recuperar panel de reservaciones
+            const panel = document.querySelector('.panel');
+
+            // Agregar titulo
+            let title = `<h1>Tus reservaciones</h1>`;
+            panel.innerHTML = title;
+
+            // Agregar cada reservacion del usuario
             const eventsArr = response.data;
             eventsArr.forEach((event) => {
-
                 // Plantilla de Bootstrap
-                template = `<h1>Tus reservaciones</h1>
+                let template = `
                 <article class="reservation">
                     <button type="button" class="reser" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                         <span class="title">${event.descripcion}</span>
@@ -51,7 +60,7 @@ function reservaciones(tableContainer) {
                                 <div class="modal-body">
                                     Hora de inicio: <span>${roundTime(obtenerHora(event.startDateTime))}</span><br>
                                     Hora de fin: <span>${roundTime(obtenerHora(event.endDateTime))}</span><br>
-                                    Laboratorio: <span>${event.numLab}</span>
+                                    Laboratorio: <span>${event.numLab.toString()}</span>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn" data-bs-dismiss="modal"
@@ -61,10 +70,15 @@ function reservaciones(tableContainer) {
                         </div>
                     </div>
                 </article>`;
+
+                panel.innerHTML += template;
             });
             // Aquí puedes hacer lo que desees con los datos recibidos
         })
         .catch((error) => {
             alert(error);
         });
-}  
+}
+
+
+reservaciones(usuario);
