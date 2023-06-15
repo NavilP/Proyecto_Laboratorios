@@ -448,7 +448,7 @@ function usuarios(tableContainer) {
 }
 
 function createClick(element) {
-    element.addEventListener("click", function (e) {
+  element.addEventListener("click", function (e) {
     console.log(element.id);
     const id = element.id;
     var usuarioInput = document.querySelector("#usuario");
@@ -713,35 +713,34 @@ function opcionesHorarios(tableContainer) {
         horarios.forEach((horario) => {
           if (horario.day === dayc) {
             const p = document.createElement("div");
-p.style.marginTop = "1rem";
+            p.style.marginTop = "1rem";
 
-const strong = document.createElement("strong");
-strong.textContent = horario.descripcion;
-p.appendChild(strong);
+            const strong = document.createElement("strong");
+            strong.textContent = horario.descripcion;
+            p.appendChild(strong);
 
-const br = document.createElement("br");
-p.appendChild(br);
+            const br = document.createElement("br");
+            p.appendChild(br);
 
-const span3 = document.createElement("span");
-span3.textContent = horario.usuario;
-p.appendChild(span3);
+            const span3 = document.createElement("span");
+            span3.textContent = horario.usuario;
+            p.appendChild(span3);
 
-const br3 = document.createElement("br");
-p.appendChild(br3);
+            const br3 = document.createElement("br");
+            p.appendChild(br3);
 
-const span1 = document.createElement("span");
-span1.textContent = horario.startTime;
-p.appendChild(span1);
+            const span1 = document.createElement("span");
+            span1.textContent = horario.startTime;
+            p.appendChild(span1);
 
-const guion = document.createTextNode(" - ");
-p.appendChild(guion);
+            const guion = document.createTextNode(" - ");
+            p.appendChild(guion);
 
-const span2 = document.createElement("span");
-span2.textContent = horario.endTime;
-p.appendChild(span2);
+            const span2 = document.createElement("span");
+            span2.textContent = horario.endTime;
+            p.appendChild(span2);
 
-article.appendChild(p);
-
+            article.appendChild(p);
           }
         });
       })
@@ -761,13 +760,10 @@ article.appendChild(p);
 // Funcionalidad para recuperar cancelaciones
 function cancelaciones(tableContainer) {
   const table = document.createElement("table");
-
+  table.id = "myTable";
   // Crear filas del head de la tabla
   const tr = document.createElement("tr");
   // Crear columnas del head de la tabla
-  const th1 = document.createElement("th");
-  th1.scope = "col";
-  th1.textContent = "ID";
 
   const th2 = document.createElement("th");
   th2.scope = "col";
@@ -780,6 +776,10 @@ function cancelaciones(tableContainer) {
   const th4 = document.createElement("th");
   th4.scope = "col";
   th4.textContent = "Laboratorio";
+
+  const th9 = document.createElement("th");
+  th9.scope = "col";
+  th9.textContent = "Fecha";
 
   const th5 = document.createElement("th");
   th5.scope = "col";
@@ -797,10 +797,10 @@ function cancelaciones(tableContainer) {
   th8.scope = "col";
   th8.textContent = "Cancelada";
   // Append a la fila
-  tr.appendChild(th1);
   tr.appendChild(th2);
   tr.appendChild(th3);
   tr.appendChild(th4);
+  tr.appendChild(th9);
   tr.appendChild(th5);
   tr.appendChild(th6);
   tr.appendChild(th7);
@@ -819,64 +819,77 @@ function cancelaciones(tableContainer) {
   // Insertar las reservaciones
   const tbody = document.createElement("tbody");
 
-  eventsArr.forEach((event) => {
-    if (event.canceled === 1) {
-      const tr = document.createElement("tr");
-      // Recuperar datos
-      // ID de la reserva
-      const td1 = document.createElement("td");
-      td1.classList.add("id-reserva");
-      td1.textContent = event.idReserva;
-      // Usuario
-      const td2 = document.createElement("td");
-      td2.classList.add("user");
-      td2.textContent = event.usuario;
-      // Tipo
-      const td3 = document.createElement("td");
-      td3.classList.add("type");
-      td3.textContent = event.tipo;
-      // Laboratorio
-      const td4 = document.createElement("td");
-      td4.classList.add("lab");
-      td4.textContent = event.numLab;
-      // Hora de llegada (startDateTime)
-      const td5 = document.createElement("td");
-      td5.classList.add("start");
-      td5.textContent = event.startDateTime;
-      // Hora de salida (endDateTime)
-      const td6 = document.createElement("td");
-      td6.classList.add("end");
-      td6.textContent = event.endDateTime;
-      // Descripcion
-      const td7 = document.createElement("td");
-      td7.classList.add("decription");
-      td7.textContent = event.descripcion;
-      // Cancelada
-      const td8 = document.createElement("td");
-      td8.classList.add("canceled");
-      if (event.canceled === 0) {
-        td8.textContent = "No";
-      } else {
-        td8.textContent = "Sí";
-      }
+  axios
+    .get("http://localhost:8080/reservas", {})
+    .then((response) => {
+      const eventsArr = response.data;
+      eventsArr.forEach((event) => {
+        if (event.canceled === 1) {
+          const tr = document.createElement("tr");
+          tr.id = event.idreserva;
+          tr.setAttribute("data-bs-toggle", "modal");
+          tr.setAttribute("data-bs-target", "#exampleModal");
+          // Recuperar datos
+          // Usuario
+          const td2 = document.createElement("td");
+          td2.classList.add("user");
+          td2.textContent = event.usuario;
+          // Tipo
+          const td3 = document.createElement("td");
+          td3.classList.add("type");
+          td3.textContent = event.tipo;
+          // Laboratorio
+          const td4 = document.createElement("td");
+          td4.classList.add("lab");
+          td4.textContent = event.numLab;
+          //fecha
+          const td9 = document.createElement("td");
+          td9.classList.add("lab");
+          td9.textContent = obtenerFecha(event.startDateTime);
+          // Hora de llegada (startDateTime)
+          const td5 = document.createElement("td");
+          td5.classList.add("start");
+          console.log(event.startDateTime);
+          td5.textContent = roundTime(obtenerHora(event.startDateTime));
+          // Hora de salida (endDateTime)
+          const td6 = document.createElement("td");
+          td6.classList.add("end");
+          td6.textContent = roundTime(obtenerHora(event.endDateTime));
+          // Descripcion
+          const td7 = document.createElement("td");
+          td7.classList.add("decription");
+          td7.textContent = event.descripcion;
+          // Cancelada
+          const td8 = document.createElement("td");
+          td8.classList.add("canceled");
+          if (event.canceled === 0) {
+            td8.textContent = "No";
+          } else {
+            td8.textContent = "Sí";
+          }
 
-      // Append a la fila
-      tr.appendChild(td1);
-      tr.appendChild(td2);
-      tr.appendChild(td3);
-      tr.appendChild(td4);
-      tr.appendChild(td5);
-      tr.appendChild(td6);
-      tr.appendChild(td7);
-      tr.appendChild(td8);
+          // Append a la fila
+          tr.appendChild(td2);
+          tr.appendChild(td3);
+          tr.appendChild(td4);
+          tr.appendChild(td9);
+          tr.appendChild(td5);
+          tr.appendChild(td6);
+          tr.appendChild(td7);
+          tr.appendChild(td8);
+          createClick(tr);
+          // Append al body de la tabla
+          tbody.appendChild(tr);
 
-      // Append al body de la tabla
-      tbody.appendChild(tr);
-
-      // Append a la tabla
-      table.appendChild(tbody);
-    }
-  });
+          // Append a la tabla
+          table.appendChild(tbody);
+        }
+      });
+      // Aquí puedes hacer lo que desees con los datos recibidos
+    })
+    .catch((error) => {
+      alert(error);
+    });
 }
 
 // Funcionalidad para seleccinar opciones
