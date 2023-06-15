@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+html {
+    background-color: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: "Raleway", Tahoma, Arial, sans-serif;
+}
+
+*::selection {
+    background-color: transparent;
+}
+
+body {
+    font-family: "Raleway", Tahoma, Arial, sans-serif;
+    font-size: .9em;
+}
+
+body {
+    box-sizing: border-box;
+    background-size: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.shape {
+    background-color: rgba(0, 0, 0, 0.4);
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+}
+
+header {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4em;
+    padding-right: 2em;
+
+}
+
+.logo img {
+    height: 60px;
+    width: 60px;
+}
+
+
+header nav ul li {
+    display: inline;
+    font-size: 1.25em;
+    padding-left: 1em;
+}
+
+header nav ul li a:link {
+    background-color: transparent;
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+header nav ul li a:hover {
+    color: rgb(255, 255, 255);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+header nav ul li a:visited {
+    color: #fff;
+    text-decoration: none;
+}
+
+.submenu {
+    display: none;
+}
+
+main{
+    background-color: #e9e9e9;
+    height: 100vh;
+}
+
+.panel {
+    width: 100vw;
+    padding: 7em 4em;
+    z-index: 99;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
+
+.panel h1 {
+    color: rgb(109, 50, 79);
+}
+
+article {
+    height: 8em;
+    margin: 0 2em 1em 0;
+}
+
+.reser {
+    background-color: #fff;
+    outline: none;
+    border-radius: 1em;
+    border: none;
+    padding: 2em;
+    color: rgb(109, 50, 79);
+    height: 100%;
+    width: 18em;
+    text-align: left;
+    font-size: 0.9em;
+    display: grid;
+    box-shadow: rgba(109, 50, 79, 0.2) 0px 7px 29px 0px;
+}
+
+.reser .modul {
+    font-size: 0.8em;
+}
+
+.float-eye {
+    margin-left: 8em;
+}
+
+.purple-close {
+    background-color: rgb(109, 50, 79);
+    color: #fff;
+}

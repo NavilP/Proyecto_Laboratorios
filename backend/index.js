@@ -86,6 +86,10 @@ app.get('/admin',requireLogin, (req, res) => {
   res.sendFile(path.join(__dirname, 'public/views/admin-view.html'));
 });
 
+app.get('/userreser',requireLogin, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/views/user-reser.html'));
+});
+
 app.get('/logout', (req, res) => {
   res.cookie('sessionId', '', { expires: new Date(0) });
   res.redirect('/inicio');
