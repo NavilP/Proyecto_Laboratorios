@@ -291,7 +291,6 @@ function actualCalendar() {
     days += `<p class="day next-date">${i}</p>`;
   }
   daysContainer.innerHTML = days;
-
   addListener();
 }
 
@@ -321,8 +320,6 @@ next.addEventListener("click", nextMonth);
 
 // Inicializar calendario
 actualCalendar();
-
-// Eventos (derecha)
 
 //Agregar funcionalidad para abrir y cerrar la ventana
 //Abrir la ventana

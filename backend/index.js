@@ -104,6 +104,14 @@ app.get("/usuario", (req, res) => {
     })
 });
 
+app.get("/usuarioSelect", (req, res) => {
+    const q = "SELECT correo FROM usuario;"
+    db.query(q, (err, data) => {
+        if (err) return res.json(err)
+        return res.json(data)
+    })
+});
+
 
 app.get('/usertype/:correo', (req, res) => {
   res.header('Access-Control-Allow-Origin', '*');
@@ -153,6 +161,35 @@ app.get("/reservas", (req, res) => {
     })
 });
 
+app.get("/reservasDia", (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  )
+  const q = `SELECT usuario,
+  DATE_FORMAT(startDateTime, '%H:%i:%s') AS startTime,
+  DATE_FORMAT(endDateTime, '%H:%i:%s') AS endTime,
+  descripcion,
+  CASE DAYOFWEEK(startDateTime)
+    WHEN 1 THEN 'Domingo'
+    WHEN 2 THEN 'Lunes'
+    WHEN 3 THEN 'Martes'
+    WHEN 4 THEN 'Miércoles'
+    WHEN 5 THEN 'Jueves'
+    WHEN 6 THEN 'Viernes'
+    WHEN 7 THEN 'Sábado'
+  END AS day
+FROM reserva
+WHERE YEAR(startDateTime) = YEAR(CURDATE())
+  AND WEEK(startDateTime) = WEEK(CURDATE());`;
+  db.query(q, (err, data) => {
+    if (err) return res.json(err)
+    return res.json(data)
+  })
+});
+
+
 app.get('/reservas/:id', (req, res) => {
   const id = req.params.id;
   console.log(id);
@@ -164,18 +201,15 @@ app.get('/reservas/:id', (req, res) => {
 });
 
 app.put('/Editreservas/:id', (req, res) => {
-  console.log("entro");
   const id = req.params.id; // Obtén el ID de la reserva desde los parámetros de la URL
   const { tipo, descripcion, cancelada } = req.body;
-  const q = 'UPDATE reserva SET tipo = ?, descripcion = ?, cancelada = ? WHERE id = ?';
+  const q = 'UPDATE reserva SET tipo = ?, descripcion = ?, canceled = ? WHERE idreserva = ?';
   db.query(q, [tipo, descripcion, cancelada, id],(err, data) => {
-      if (err) {
-          res.status(500).send('Error al actualizar la reservación');
-        } else {
-          res.send(`Reserva actualizada con exito`);
-        }
+    if (err) return res.json(err);
+    return res.send(`Reserva actualizada con exito`);
   })
 });
+
 
 app.get("/reserva/:s", (req, res) => {
     res.header('Access-Control-Allow-Origin', '*')
@@ -264,6 +298,20 @@ app.put('/cancelar/:id', (req, res) => {
             res.send(`Reserva cancelada con exito`);
           }
     })
+});
+
+app.put('/edit/:id', (req, res) => {
+  const id = req.params.id;
+  const newFaltas = req.body.numFaltas;
+  console.log(newFaltas);
+  const q = 'UPDATE usuario SET numFaltas = ? WHERE correo = ?';
+  db.query(q, [newFaltas, id],(err, data) => {
+      if (err) {
+          res.status(500).send('Error al actualizar el usuario');
+        } else {
+          res.send(`Usuario actualizado con exito`);
+        }
+  })
 });
 
 app.post('/guardar-datos', (req, res) => {

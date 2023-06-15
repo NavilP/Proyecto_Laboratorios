@@ -129,7 +129,7 @@
     numLab: 1,
     canceled: 1,
   },
-];*/
+];
 
 const usuario = [
   {
@@ -175,7 +175,7 @@ const horarios = [
     endDateTime: "08:29:50",
     day: "Jueves",
   },
-];
+];*/
 
 function obtenerFecha(s) {
   const fecha = new Date(s);
@@ -192,6 +192,7 @@ function obtenerHora(s) {
   const segundos = String(fecha.getSeconds()).padStart(2, "0");
   return `${horas}:${minutos}:${segundos}`;
 }
+
 function roundTime(time) {
   const [hours, minutes] = time.split(":").map(Number);
   const roundedMinutes = Math.ceil(minutes / 10) * 10;
@@ -203,7 +204,7 @@ function roundTime(time) {
 // Funcionalidad para recuperar reservaciones
 function reservaciones(tableContainer) {
   const table = document.createElement("table");
-
+  table.id = "myTable";
   // Crear filas del head de la tabla
   const tr = document.createElement("tr");
   // Crear columnas del head de la tabla
@@ -329,14 +330,14 @@ function reservaciones(tableContainer) {
       // Aquí puedes hacer lo que desees con los datos recibidos
     })
     .catch((error) => {
-      console.error(error);
+      alert(error);
     });
 }
 
 // Funcionalidad para recuperar usuarios
 function usuarios(tableContainer) {
   const table = document.createElement("table");
-
+  table.id = "myTable";
   // Crear filas del head de la tabla
   const tr = document.createElement("tr");
   // Crear columnas del head de la tabla
@@ -352,10 +353,14 @@ function usuarios(tableContainer) {
   th3.scope = "col";
   th3.textContent = "Numero de Faltas";
 
+  const th4 = document.createElement("th");
+  th4.scope = "col";
+
   // Append a la fila
   tr.appendChild(th1);
   tr.appendChild(th2);
   tr.appendChild(th3);
+  tr.appendChild(th4);
 
   // Append al head de la tabla
   const thead = document.createElement("thead");
@@ -369,35 +374,77 @@ function usuarios(tableContainer) {
   // ***************************************************************** //
   // Insertar los usuarios
   const tbody = document.createElement("tbody");
+  axios
+    .get("http://localhost:8080/usuario", {})
+    .then((response) => {
+      const usuario = response.data;
+      usuario.forEach((user) => {
+        const tr = document.createElement("tr");
+        // Recuperar datos
+        // Correo
+        const td1 = document.createElement("td");
+        td1.classList.add("mail");
+        td1.textContent = user.correo;
+        // Tipo
+        const td2 = document.createElement("td");
+        td2.classList.add("type-user");
+        td2.textContent = user.tipo;
+        // Numero de Faltas (numFaltas)
+        const td3 = document.createElement("td");
+        td3.classList.add("num-faltas");
+        td3.textContent = user.numFaltas;
 
-  usuario.forEach((user) => {
-    const tr = document.createElement("tr");
+        const td4 = document.createElement("td");
+        td4.classList.add("num-faltas");
+        const btnEdit = document.createElement("button");
+        btnEdit.textContent = "✎";
+        td4.appendChild(btnEdit);
+        btnEdit.addEventListener("click", () => {
+          id = user.correo;
+          const number = document.createElement("input");
+          number.classList.add("number");
+          number.value = td3.textContent;
+          td3.textContent = "";
+          number.setAttribute("type", "number");
+          number.setAttribute("min", "0");
+          number.setAttribute("max", "100");
+          td3.appendChild(number);
+          btnEdit.textContent = "Save";
+          btnEdit.addEventListener("click", function (e) {
+            const newFaltas = number.value.toString();
+            axios
+              .put(`http://localhost:8080/edit/${id}`, { numFaltas: newFaltas })
+              .then((response) => {
+                alert(response.data);
+                btnEdit.textContent = "✎";
+                number.style.display = "none";
+                location.reload();
+              })
+              .catch((error) => {
+                alert(error);
+                // Manejar el error de alguna manera
+              });
+          });
+        });
 
-    // Recuperar datos
-    // Correo
-    const td1 = document.createElement("td");
-    td1.classList.add("mail");
-    td1.textContent = user.correo;
-    // Tipo
-    const td2 = document.createElement("td");
-    td2.classList.add("type-user");
-    td2.textContent = user.tipo;
-    // Numero de Faltas (numFaltas)
-    const td3 = document.createElement("td");
-    td3.classList.add("num-faltas");
-    td3.textContent = user.numfaltas;
+        // Append a la fila
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
 
-    // Append a la fila
-    tr.appendChild(td1);
-    tr.appendChild(td2);
-    tr.appendChild(td3);
+        // Append al body de la tabla
+        tbody.appendChild(tr);
 
-    // Append al body de la tabla
-    tbody.appendChild(tr);
+        // Append a la tabla
+        table.appendChild(tbody);
+      });
+    })
 
-    // Append a la tabla
-    table.appendChild(tbody);
-  });
+    .catch((error) => {
+      alert(error);
+    });
+  searchTable();
 }
 
 function createClick(element) {
@@ -430,90 +477,209 @@ function createClick(element) {
         canceladaSelect.value = reserva.canceled;
       })
       .catch((error) => {
-        console.log(error);
+        alert(error);
       });
+
+    const form = document.getElementById("edits");
+    form.addEventListener("submit", function (event) {
+      event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+
+      const tipo = form.elements.tipo.value;
+      const descripcion = form.elements.descripcion.value;
+      const cancelada = form.elements.cancelada.value;
+
+      // Ejemplo: muestra los valores en la consola
+      console.log("Tipo:", tipo);
+      console.log("Descripción:", descripcion);
+      console.log("Cancelada:", cancelada);
+
+      const reservaId = 7; // ID de la reserva que deseas editar
+      const updatedReserva = {
+        tipo: tipo,
+        descripcion: descripcion,
+        cancelada: cancelada,
+      };
+      axios
+        .put(`http://localhost:8080/Editreservas/${reservaId}`, updatedReserva)
+        .then((response) => {
+          console.log(response.data);
+          location.reload(); // Muestra la respuesta del servidor en la consola
+        })
+        .catch((error) => {
+          alert(error);
+        });
+      // Limpia los campos del formulario si es necesario
+      form.reset();
+    });
   });
 }
 
-document.getElementById("editSub").addEventListener("click", () => {
-  alert("se envio");
-  // Obtén los valores de los campos del formulario
-  var tipo = document.getElementById("tipo").value;
-  var descripcion = document.getElementById("descripcion").value;
-  var cancelada = document.getElementById("cancelada").value;
-  const id = 7; // ID de la reserva que deseas actualizar
-  const updatedData = {
-    tipo: "Nuevo tipo",
-    descripcion: "Nueva descripción",
-    cancelada: 0,
-  };
-  alert(tipo + " " + descripcion + " " + cancelada + " " + id);
-  axios
-        .put(`http://localhost:8080/Editreservas/${id}`)
-        .then((response) => {
-          alert(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-});
-
 // Funcionalidad para agregar y consultar horarios
 function opcionesHorarios(tableContainer) {
-  // Seccion izquierda
   const form = document.createElement("form");
+  form.id = "new-reservation";
   const titleForm = document.createElement("h2");
   titleForm.textContent = "Agregar horario nuevo";
 
   const input1 = document.createElement("input");
-  input1.type = "text";
-  input1.placeholder = "Usuario de profesor";
+  input1.setAttribute("list", "usuarios");
+  input1.id = "opciones";
+  input1.placeholder = "Correo de usuario";
+  const input1_1 = document.createElement("datalist");
+  input1_1.id = "usuarios";
+  axios
+    .get("http://localhost:8080/usuarioSelect")
+    .then((response) => {
+      const opciones = response.data;
+      opciones.forEach((opcion) => {
+        const option = document.createElement("option");
+        option.text = opcion.correo;
+        option.value = opcion.correo;
+        input1_1.appendChild(option);
+      });
+    })
+    .catch((error) => {
+      alert(error);
+    });
 
+  const inputDate = document.createElement("input");
+  inputDate.type = "date";
+  inputDate.placeholder = "Fecha";
+  inputDate.id = "inputDate";
   const input2 = document.createElement("input");
   input2.type = "text";
+  input2.id = "Horainicio";
   input2.placeholder = "Hora de inicio";
+  input2.setAttribute("onkeyup", "formatearHora(this)");
+  input2.setAttribute("data-bs-toggle", "tooltip");
+  input2.setAttribute("data-bs-placement", "bottom");
+  input2.setAttribute("title", "Escribela en formato de 24 horas");
 
   const input3 = document.createElement("input");
   input3.type = "text";
+  input3.id = "Horafin";
   input3.placeholder = "Hora de fin";
+  input3.setAttribute("onkeyup", "formatearHora(this)");
+  input3.setAttribute("data-bs-toggle", "tooltip");
+  input3.setAttribute("data-bs-placement", "bottom");
+  input3.setAttribute("title", "Escribela en formato de 24 horas");
 
   const input4 = document.createElement("input");
   input4.type = "text";
+  input4.id = "description";
   input4.placeholder = "Decripción de la clase";
 
+  const selectLab = document.createElement("select");
+  selectLab.id = "numLab";
+  const option1 = document.createElement("option");
+  option1.value = "1";
+  option1.text = "Lab 1";
+  selectLab.appendChild(option1);
+
+  const option2 = document.createElement("option");
+  option2.value = "2";
+  option2.text = "Lab 2";
+  selectLab.appendChild(option2);
+
   const submitBtn = document.createElement("button");
+  submitBtn.id = "submitForm2";
   submitBtn.classList.add("submit");
   submitBtn.textContent = "Agregar";
 
   form.appendChild(titleForm);
   form.appendChild(input1);
+  form.appendChild(input1_1);
+  form.appendChild(inputDate);
   form.appendChild(input2);
   form.appendChild(input3);
   form.appendChild(input4);
+  form.appendChild(selectLab);
   form.appendChild(submitBtn);
 
   tableContainer.appendChild(form);
+
+  document
+    .getElementById("new-reservation")
+    .addEventListener("submit", function (event) {
+      event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+
+      // Obtén los valores de los campos del formulario
+      var usuario = document.getElementById("opciones").value;
+      var fecha = document.getElementById("inputDate").value;
+
+      var horaInicio = document.getElementById("Horainicio").value;
+      var horaFin = document.getElementById("Horafin").value;
+      var descripcion = document.getElementById("description").value;
+      var numLab = document.getElementById("numLab").value;
+      console.log(formatbd(fecha, horaInicio));
+      console.log(formatbd(fecha, horaFin));
+      console.log(fecha);
+      // Crea un objeto con los datos del formulario
+      var formData = {
+        start: horaInicio,
+        end: horaFin,
+        descripcion: descripcion,
+        tipo: "clase",
+        usuario: usuario,
+        numLab: numLab,
+      };
+
+      // Realiza la petición al servidor utilizando Axios
+      axios
+        .post("http://localhost:8080/addEvento", formData)
+        .then(function (response) {
+          alert("Se guardó con exito");
+          document.getElementById("new-reservation").reset();
+          // La petición fue exitosa, puedes realizar acciones adicionales aquí si es necesario
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          // Ocurrió un error durante la petición, maneja el error aquí
+          alert(error);
+        });
+    });
 
   // Seccion derecha
   const section = document.createElement("section");
   section.classList.add("search-schedule");
 
-  const title2 = document.createElement("h2");
-  title2.textContent = "Buscar horario";
+  /*const title2 = document.createElement("h2");
+  title2.textContent = "Horario Semanal";
 
   const input_s1 = document.createElement("input");
-  input_s1.type = "text";
-  input_s1.placeholder = "Usuario";
+  input_s1.setAttribute("list", "usuarios");
+  input_s1.id = "opciones";
+  input_s1.placeholder = "Correo de usuario";
+  const input_s1_1 = document.createElement("datalist");
+  input_s1_1.id = "usuarios";
+  axios
+    .get("http://localhost:8080/usuarioSelect")
+    .then((response) => {
+      const opciones = response.data;
+      opciones.forEach((opcion) => {
+        const option = document.createElement("option");
+        option.text = opcion.correo;
+        option.value = opcion.correo;
+        input_s1_1.appendChild(option);
+      });
+    })
+    .catch((error) => {
+      alert(error);
+    });
 
   const input_s2 = document.createElement("input");
   input_s2.type = "text";
-  input_s2.placeholder = "Fecha";
+  input_s2.placeholder = "Fecha";*/
 
   const article = document.createElement("article");
+  article.style.marginTop = "0";
   article.classList.add("search-results");
-  article.textContent = "Resultados";
 
-  let arrayDays = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes"];
+  const title2 = document.createElement("h1");
+  title2.textContent = "Horario Semanal";
+  article.appendChild(title2);
+
+  let arrayDays = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
 
   const day1 = document.createElement("p");
   day1.classList.add("day");
@@ -540,29 +706,53 @@ function opcionesHorarios(tableContainer) {
   for (let i = 0; i < 5; i++) {
     let dayc = arrayDays[i];
     article.appendChild(dayhtml[i]);
+    axios
+      .get("http://localhost:8080/reservasDia")
+      .then((response) => {
+        const horarios = response.data;
+        horarios.forEach((horario) => {
+          if (horario.day === dayc) {
+            const p = document.createElement("div");
+p.style.marginTop = "1rem";
 
-    horarios.forEach((horario) => {
-      if (horario.day === dayc) {
-        const p = document.createElement("p");
-        p.textContent = "Clase ";
+const strong = document.createElement("strong");
+strong.textContent = horario.descripcion;
+p.appendChild(strong);
 
-        const span1 = document.createElement("span");
-        span1.textContent = horario.startDateTime;
-        p.appendChild(span1);
+const br = document.createElement("br");
+p.appendChild(br);
 
-        p.textContent += "- ";
+const span3 = document.createElement("span");
+span3.textContent = horario.usuario;
+p.appendChild(span3);
 
-        const span2 = document.createElement("span");
-        span2.textContent = horario.endDateTime;
-        p.appendChild(span2);
-        article.appendChild(p);
-      }
-    });
+const br3 = document.createElement("br");
+p.appendChild(br3);
+
+const span1 = document.createElement("span");
+span1.textContent = horario.startTime;
+p.appendChild(span1);
+
+const guion = document.createTextNode(" - ");
+p.appendChild(guion);
+
+const span2 = document.createElement("span");
+span2.textContent = horario.endTime;
+p.appendChild(span2);
+
+article.appendChild(p);
+
+          }
+        });
+      })
+      .catch((error) => {
+        alert(error);
+      });
   }
 
-  section.appendChild(title2);
-  section.appendChild(input_s1);
-  section.appendChild(input_s2);
+  //section.appendChild(title2);
+  /*section.appendChild(input_s1);
+  section.appendChild(input_s2);*/
   section.appendChild(article);
 
   tableContainer.appendChild(section);
@@ -632,7 +822,6 @@ function cancelaciones(tableContainer) {
   eventsArr.forEach((event) => {
     if (event.canceled === 1) {
       const tr = document.createElement("tr");
-
       // Recuperar datos
       // ID de la reserva
       const td1 = document.createElement("td");
@@ -710,7 +899,7 @@ function optionFunc(event) {
   } else if (event.currentTarget.classList.contains("two")) {
     console.log("Two");
 
-    if (!searchDay.classList.contains("hide")) searchDay.classList.add("hide");
+    //if (!searchDay.classList.contains("hide")) searchDay.classList.add("hide");
 
     title.textContent = "Usuarios";
 
@@ -737,3 +926,86 @@ const options = document.querySelectorAll(".options");
 options.forEach((option) => {
   option.addEventListener("click", optionFunc);
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const button = options[0]; // Reemplaza "myButton" con el ID de tu botón
+  button.click(); // Simula el clic en el botón automáticamente
+  searchTable();
+});
+
+function searchTable() {
+  // Obtener el valor de búsqueda
+  var input = document.getElementById("searchInput");
+  var filter = input.value.toUpperCase();
+
+  // Obtener el tbody de la tabla
+  var tbody = document
+    .getElementById("myTable")
+    .getElementsByTagName("tbody")[0];
+  var rows = tbody.getElementsByTagName("tr");
+
+  // Recorrer todas las filas del tbody y ocultar aquellas que no coincidan con la búsqueda
+  for (var i = 0; i < rows.length; i++) {
+    var cells = rows[i].getElementsByTagName("td");
+    var found = false;
+    for (var j = 0; j < cells.length; j++) {
+      var cell = cells[j];
+      if (cell) {
+        if (cell.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          found = true;
+          break;
+        }
+      }
+    }
+    if (found) {
+      rows[i].style.display = "";
+    } else {
+      rows[i].style.display = "none";
+    }
+  }
+}
+
+// Agregar un controlador de eventos al botón de envío
+
+function formatearHora(input) {
+  // Eliminar cualquier carácter que no sea un número
+  input.value = input.value.replace(/\D/g, "");
+
+  // Asegurarse de que el valor tenga una longitud máxima de 4 caracteres
+  if (input.value.length > 4) {
+    input.value = input.value.slice(0, 4);
+  }
+
+  // Formatear el valor como una hora con dos puntos
+  if (input.value.length >= 3) {
+    var horaFormateada = input.value.slice(0, 2) + ":" + input.value.slice(2);
+    input.value = horaFormateada;
+  }
+}
+
+function formatbd(fecha, time) {
+  var fechaHoraInicio = new Date(fecha + "T" + time);
+
+  // Obtiene los componentes de la fecha y hora
+  var year = fechaHoraInicio.getFullYear();
+  var month = ("0" + (fechaHoraInicio.getMonth() + 1)).slice(-2);
+  var day = ("0" + fechaHoraInicio.getDate()).slice(-2);
+  var hours = ("0" + fechaHoraInicio.getHours()).slice(-2);
+  var minutes = ("0" + fechaHoraInicio.getMinutes()).slice(-2);
+  var seconds = ("0" + fechaHoraInicio.getSeconds()).slice(-2);
+
+  // Formatea la fecha y la hora en el formato deseado
+  var formatoDeseado =
+    year +
+    "-" +
+    month +
+    "-" +
+    day +
+    " " +
+    hours +
+    ":" +
+    minutes +
+    ":" +
+    seconds;
+  return formatoDeseado;
+}
