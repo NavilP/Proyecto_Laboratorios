@@ -1,4 +1,36 @@
-let usuario = 'navil@gmail.com';
+const session = require("express-session");
+
+function getCookieValue(cookieName) {
+    var name = cookieName + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var cookieArray = decodedCookie.split(";");
+
+    for (var i = 0; i < cookieArray.length; i++) {
+        var cookie = cookieArray[i];
+        while (cookie.charAt(0) === " ") {
+            cookie = cookie.substring(1);
+        }
+        if (cookie.indexOf(name) === 0) {
+            return cookie.substring(name.length, cookie.length);
+        }
+    }
+
+    return null; // Si no se encuentra la cookie
+}
+
+// Uso
+var sessionId = getCookieValue("sessionId");
+console.log(sessionId);
+userName.textContent = sessionId;
+
+//funciones propias
+function doubledigit(num) {
+    if (num < 10) {
+        return "0" + num.toString();
+    } else {
+        return num.toString();
+    }
+}
 
 function obtenerFecha(s) {
     const fecha = new Date(s);
@@ -80,5 +112,4 @@ function reservaciones(user) {
         });
 }
 
-
-reservaciones(usuario);
+reservaciones(sessionId);
