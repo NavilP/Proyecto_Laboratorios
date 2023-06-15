@@ -448,7 +448,7 @@ function usuarios(tableContainer) {
 }
 
 function createClick(element) {
-  element.addEventListener("click", function (e) {
+    element.addEventListener("click", function (e) {
     console.log(element.id);
     const id = element.id;
     var usuarioInput = document.querySelector("#usuario");
