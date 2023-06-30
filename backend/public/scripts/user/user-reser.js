@@ -1,3 +1,4 @@
+
 function getCookieValue(cookieName) {
     var name = cookieName + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
@@ -17,7 +18,7 @@ function getCookieValue(cookieName) {
   }
   
   // Uso
-  var sessionId = getCookieValue("sessionId");
+var usuario = getCookieValue("sessionId");
 
 function obtenerFecha(s) {
     const fecha = new Date(s);
