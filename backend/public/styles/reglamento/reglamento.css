@@ -102,17 +102,36 @@ main {
     width: 12vw;
 }
 
-.card{
+.card-r{
     position: relative;
-    width: 23%;
+    width: 30%;
     font-size: 1.5em;
-    color: rgb(109, 50, 79);
-    margin: 1%;
+    color: rgb(108, 29, 69);
+    display: grid;
+    margin: 1em;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.card-r button,
+.modal-footer button {
+    background-color: rgb(108, 29, 69);
+    color: #fff;
+}
+
+.card-r button:hover,
+.modal-footer button:hover {
+    background-color: #fff;
+    color: rgb(108, 29, 69);
+}
+
+.card-r .modal{
+    position: absolute;
 }
 
 .description {
-    display: none;
-    font-size: 0.6em;
+    /*display: none;*/
     text-align: left;
     color: #000000;
 }
@@ -124,7 +143,7 @@ main {
 }
 
 footer {
-    background-color: rgb(109, 50, 79);
+    background-color: rgb(108, 29, 69);
     color: #fff;
     padding: 15px;
     position: fixed;
