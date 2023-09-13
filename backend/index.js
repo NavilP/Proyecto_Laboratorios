@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser';
 import path from "path";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path'; 
+import crypto from "crypto";
+import bcrypt from "bcrypt";
 
 const app = express();
 app.use(cookieParser());
@@ -14,6 +16,15 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 app.use(express.static(join(__dirname, 'public')));
+
+// Función para crear un hash seguro de una contraseña
+async function hashPassword(password) {
+  const saltRounds = 10; // Número de rondas de hashing (ajusta según tus necesidades)
+  const salt = await bcrypt.genSalt(saltRounds);
+  const hashedPassword = await bcrypt.hash(password, salt);
+  return hashedPassword;
+}
+
 
 const db = mysql.createConnection({
     host: 'localhost',
@@ -38,7 +49,37 @@ app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/login.html');
 });
 
-app.post('/login', (req, res) => {
+app.post('/login', async (req, res) => {
+  const usuario = req.body.username;
+  const contraseña = req.body.password;
+
+  // Realiza una consulta para obtener el hash de la contraseña almacenada
+  db.query('SELECT correo, contraseña FROM usuario WHERE correo = ?', [usuario], async (error, results) => {
+    if (error) {
+      throw error;
+    }
+
+    if (results.length > 0) {
+      const storedHashedPassword = results[0].contraseña;
+
+      // Compara la contraseña desencriptada con el hash almacenado
+      const isMatch = await bcrypt.compare(contraseña, storedHashedPassword);
+
+      if (isMatch) {
+        // Almacenar información de sesión
+        res.cookie('sessionId', usuario);
+        res.redirect('/horario');
+      } else {
+        res.send('Usuario o contraseña incorrectos');
+      }
+    } else {
+      res.send('Usuario o contraseña incorrectos');
+    }
+  });
+});
+
+
+/*app.post('/login', (req, res) => {
   const usuario = req.body.username;
   const contraseña = req.body.password;
   db.query('SELECT * FROM usuario WHERE correo = ? AND contraseña = ?', [usuario, contraseña], (error, results) => {
@@ -53,7 +94,7 @@ app.post('/login', (req, res) => {
       res.send('Usuario o contraseña incorrectos');
     }
   });
-});
+});*/
 
 function requireLogin(req, res, next) {
   const sessionId = req.cookies.sessionId;
@@ -264,7 +305,38 @@ app.get("/reservauser/:u", (req, res) => {
   })
 });
 
-app.post("/personas", (req, res) => {
+app.post("/personas", async (req, res) => {
+  try {
+    console.log('si pero no');
+    console.log(req.body);
+
+    // Hasheamos la contraseña antes de guardarla en la base de datos
+    const hashedPassword = await hashPassword(req.body.contraseña);
+
+    const q = "INSERT INTO usuario (`correo`, `contraseña`, `tipo`, `numFaltas`) VALUES (?, ?, ?, ?)";
+    const values = [
+      req.body.correo,
+      hashedPassword, // Usamos el hash en lugar de la contraseña en texto claro
+      req.body.tipo,
+      req.body.numFaltas
+    ];
+    console.log(values);
+
+    db.query(q, values, (err, data) => {
+      if (err) {
+        console.error('Error al insertar en la base de datos:', err);
+        return res.status(500).json({ error: 'Error interno del servidor' });
+      }
+      console.log('Se guardó con éxito');
+      return res.json(data);
+    });
+  } catch (error) {
+    console.error('Error al hashear la contraseña:', error);
+    return res.status(500).json({ error: 'Error interno del servidor' });
+  }
+});
+
+/*app.post("/personas", (req, res) => {
     console.log('si pero no');
     console.log(req.body)
     const q = "INSERT INTO usuario (`correo`, `contraseña`, `tipo`, `numFaltas`) VALUES (?)"
@@ -280,7 +352,7 @@ app.post("/personas", (req, res) => {
         console.log('se guardo con exito')
         return res.json(data)
     })
-});
+});*/
 
 app.post("/addEvento", (req, res) => {
     console.log('si pero no');
