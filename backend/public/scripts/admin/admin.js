@@ -1035,7 +1035,21 @@ btnNewUser.addEventListener('click', ()=>{
   const addNewUser = document.querySelector('.addNewUser');
   addNewUser.addEventListener('click', ()=>{
     // Se agrega el usuario
+    const newUser = document.querySelector('.userNewUser').value;
+    const passNewUser = document.querySelector('.passNewUser').value;
+    console.log(newUser, passNewUser);
     
+    axios
+        .post("http://localhost:8080/nuevousuario", {username: newUser, password: passNewUser})
+        .then(function (response) {
+          alert("Se guardó con exito");
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          // Ocurrió un error durante la petición, maneja el error aquí
+          alert(error);
+        });
+
     btnNewUser.classList.remove('active');
     const panelNewUser = document.querySelector('.panel');
     panelNewUser.classList.remove('active');
