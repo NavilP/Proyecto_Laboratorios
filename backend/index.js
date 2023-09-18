@@ -79,6 +79,30 @@ app.post('/login', async (req, res) => {
 });
 
 
+app.post('/nuevousuario', async (req, res) => {
+  const usuario = req.body.username;
+  const contraseña = req.body.password;
+
+  db.query('SELECT * FROM usuario WHERE correo = ?', [usuario], async (error, results) => {
+    if (error) {
+      throw error;
+    }
+
+    if (results.length > 0) {
+      res.send('Usuario ya ingresado');
+    } else {
+      const hashedPassword = await argon2.hash(contraseña);
+      db.query('INSERT INTO usuario(correo, contraseña, tipo) VALUES (?, ?, ?)', [usuario, password, 'usuario'], async (error, results) => {
+        if (error) {
+          throw error;
+        }
+        res.send('Usuario registrado');
+      });
+    }
+  });
+});
+
+
 /*app.post('/login', (req, res) => {
   const usuario = req.body.username;
   const contraseña = req.body.password;
