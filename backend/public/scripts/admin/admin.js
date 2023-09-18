@@ -1022,3 +1022,30 @@ function formatbd(fecha, time) {
     seconds;
   return formatoDeseado;
 }
+
+// Funcionalidad para agregar un nuevo usuario
+const btnNewUser = document.querySelector('.btnNewUser');
+btnNewUser.addEventListener('click', ()=>{
+  btnNewUser.classList.add('active');
+  const panelNewUser = document.querySelector('.panel');
+  panelNewUser.classList.add('active');
+
+
+  // Funcionalidad para agregar un nuevo usuario a la BD
+  const addNewUser = document.querySelector('.addNewUser');
+  addNewUser.addEventListener('click', ()=>{
+    // Se agrega el usuario
+    
+    btnNewUser.classList.remove('active');
+    const panelNewUser = document.querySelector('.panel');
+    panelNewUser.classList.remove('active');
+  });
+});
+
+// Funcionalidad para cerrar ventana de nuevo usuario
+const btnCloseNewUser = document.querySelector('.closeNewUser');
+btnCloseNewUser.addEventListener('click', ()=>{
+  btnNewUser.classList.remove('active');
+  const panelNewUser = document.querySelector('.panel');
+  panelNewUser.classList.remove('active');
+});
