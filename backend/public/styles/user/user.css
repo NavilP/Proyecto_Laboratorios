@@ -15,9 +15,9 @@ body {
 
 body{
     box-sizing: border-box;
-    background-image: url(../../images/upiitf.jpg);
+    background-image: url(../../images/fondo.png);
     background-repeat: no-repeat;
-    background-size: 100%;
+    background-size:cover;
 }
 
 .shape {
