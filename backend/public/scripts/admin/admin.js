@@ -493,16 +493,15 @@ function createClick(element) {
       console.log("Descripción:", descripcion);
       console.log("Cancelada:", cancelada);
 
-      const reservaId = 7; // ID de la reserva que deseas editar
       const updatedReserva = {
         tipo: tipo,
         descripcion: descripcion,
         cancelada: cancelada,
       };
       axios
-        .put(`http://localhost:8080/Editreservas/${reservaId}`, updatedReserva)
+        .put(`http://localhost:8080/Editreservas/${id}`, updatedReserva)
         .then((response) => {
-          console.log(response.data);
+          alert(response.data);
           location.reload(); // Muestra la respuesta del servidor en la consola
         })
         .catch((error) => {
