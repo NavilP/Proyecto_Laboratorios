@@ -1,13 +1,12 @@
 import express from "express";
 import mysql from "mysql";
-import cors from "cors";
 import bodyParser from "body-parser";
 import cookieParser from 'cookie-parser';
 import path from "path";
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path'; 
-import crypto from "crypto";
 import bcrypt from "bcrypt";
+import argon2 from 'argon2';
 
 const app = express();
 app.use(cookieParser());
@@ -61,16 +60,21 @@ app.post('/login', async (req, res) => {
 
     if (results.length > 0) {
       const storedHashedPassword = results[0].contraseña;
+      
+      try {
+        // Verifica la contraseña utilizando Argon2
+        const isMatch = await argon2.verify(storedHashedPassword, contraseña);
 
-      // Compara la contraseña desencriptada con el hash almacenado
-      const isMatch = await bcrypt.compare(contraseña, storedHashedPassword);
-
-      if (isMatch) {
-        // Almacenar información de sesión
-        res.cookie('sessionId', usuario);
-        res.redirect('/horario');
-      } else {
-        res.send('Usuario o contraseña incorrectos');
+        if (isMatch) {
+          // Almacenar información de sesión
+          res.cookie('sessionId', usuario);
+          res.sendFile(__dirname + '/public/views/horario.html');
+        } else {
+          res.send('Usuario o contraseña incorrectos');
+        }
+      } catch (error) {
+        console.error(error);
+        res.send('Error al verificar la contraseña');
       }
     } else {
       res.send('Usuario o contraseña incorrectos');
@@ -92,7 +96,7 @@ app.post('/nuevousuario', async (req, res) => {
       res.send('Usuario ya ingresado');
     } else {
       const hashedPassword = await argon2.hash(contraseña);
-      db.query('INSERT INTO usuario(correo, contraseña, tipo) VALUES (?, ?, ?)', [usuario, password, 'usuario'], async (error, results) => {
+      db.query('INSERT INTO usuario(correo, contraseña, tipo, numFaltas) VALUES (?, ?, ?, ?)', [usuario, hashedPassword, 'estudiante', 0], async (error, results) => {
         if (error) {
           throw error;
         }

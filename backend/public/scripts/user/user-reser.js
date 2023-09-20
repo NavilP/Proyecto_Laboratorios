@@ -55,11 +55,12 @@ function reservaciones(user) {
             const panel = document.querySelector('.panel');
 
             // Agregar titulo
-            let title = `<h1>Tus reservaciones</h1>`;
+            let title = `<h1 id="msj">Tus reservaciones</h1>`;
             panel.innerHTML = title;
 
             // Agregar cada reservacion del usuario
             const eventsArr = response.data;
+            if(eventsArr.length > 0) {
             eventsArr.forEach((event) => {
                 // Plantilla de Bootstrap
                 let template = `
@@ -95,6 +96,11 @@ function reservaciones(user) {
 
                 panel.innerHTML += template;
             });
+        }
+        else{
+            const msj =document.getElementById('msj');
+            msj.textContent ="Aún no tienes reservaciones";
+        }
             // Aquí puedes hacer lo que desees con los datos recibidos
         })
         .catch((error) => {

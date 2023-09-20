@@ -35,6 +35,8 @@ body {
     z-index: -1;
 }
 
+
+
 header {
     background-color: rgba(0, 0, 0, 0.5);
     position: fixed;
@@ -132,3 +134,22 @@ article {
     background-color: rgb(109, 50, 79);
     color: #fff;
 }
+
+
+/* user-reser.css | http://localhost:8080/styles/user/user-reser.css */
+
+header {
+    /* background-color: rgba(0, 0, 0, 0.5); */
+    background-color: #7c0040;
+  }
+  
+  .panel h1 {
+    padding-right: inherit;
+  }
+  
+  /* Elemento | http://localhost:8080/views/user-reser.html */
+  
+  .user-greeting {
+    color: white;
+  }
+  

@@ -100,6 +100,31 @@ main {
 }
 
 
+.center-background {
+    width: 90vw;
+    height: 60vh;
+    position: relative;
+    padding-bottom: 5rem;
+}
+
+.center-background {
+    margin-top: 15vh;
+    margin-left: 5vw;
+    margin-bottom: auto;
+  }
+  
+
+.center-background {
+    background-color: #f1f1f1;
+    border-radius: 1em;
+    box-shadow: 0 2em 2em rgba(0, 0, 0, 0.3);
+    text-align: start;
+    display: inline-flex;
+    align-items: end;
+    justify-content: center;
+    text-align: center;
+}
+
 .welcome {
     background-color: #f1f1f1;
     border-radius: 1em;

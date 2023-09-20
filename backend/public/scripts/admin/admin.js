@@ -907,7 +907,7 @@ function optionFunc(event) {
     searchDay.classList.remove("hide");
 
     title.textContent = "Reservaciones";
-
+    btnNewUser.classList.add('active');
     reservaciones(tableContainer);
   } else if (event.currentTarget.classList.contains("two")) {
     console.log("Two");
@@ -915,19 +915,19 @@ function optionFunc(event) {
     //if (!searchDay.classList.contains("hide")) searchDay.classList.add("hide");
 
     title.textContent = "Usuarios";
-
+    btnNewUser.classList.remove('active');
     usuarios(tableContainer);
   } else if (event.currentTarget.classList.contains("three")) {
     console.log("Three");
     if (!searchDay.classList.contains("hide")) searchDay.classList.add("hide");
-
+    btnNewUser.classList.add('active');
     title.textContent = "Horarios";
 
     opcionesHorarios(tableContainer);
   } else if (event.currentTarget.classList.contains("four")) {
     console.log("Four");
     if (!searchDay.classList.contains("hide")) searchDay.classList.add("hide");
-
+    btnNewUser.classList.add('active');
     searchDay.classList.remove("hide");
     title.textContent = "Reservaciones";
 
@@ -1043,10 +1043,13 @@ btnNewUser.addEventListener('click', ()=>{
         .post("http://localhost:8080/nuevousuario", {username: newUser, password: passNewUser})
         .then(function (response) {
           alert("Se guardó con exito");
-          console.log(response.data);
+          const panelNewUser = document.querySelector('.panel');
+          const newUserInput = document.querySelector('.userNewUser');
+          newUserInput.value = ""; // Establecer el valor del campo de entrada a una cadena vacía
+          const passNewUserInput = document.querySelector('.passNewUser');
+          passNewUserInput.value = ""; // Establecer el valor del campo de entrada a una cadena vacía
         })
         .catch(function (error) {
-          // Ocurrió un error durante la petición, maneja el error aquí
           alert(error);
         });
 
@@ -1058,8 +1061,12 @@ btnNewUser.addEventListener('click', ()=>{
 
 // Funcionalidad para cerrar ventana de nuevo usuario
 const btnCloseNewUser = document.querySelector('.closeNewUser');
-btnCloseNewUser.addEventListener('click', ()=>{
+btnCloseNewUser.addEventListener('click', () => {
   btnNewUser.classList.remove('active');
   const panelNewUser = document.querySelector('.panel');
+  const newUserInput = document.querySelector('.userNewUser');
+  newUserInput.value = ""; // Establecer el valor del campo de entrada a una cadena vacía
+  const passNewUserInput = document.querySelector('.passNewUser');
+  passNewUserInput.value = ""; // Establecer el valor del campo de entrada a una cadena vacía
   panelNewUser.classList.remove('active');
 });

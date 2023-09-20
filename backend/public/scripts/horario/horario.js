@@ -542,6 +542,10 @@ function updateEvents(date) {
               .then(function () {
                 // Aquí puedes hacer lo que quieras con el valor obtenido
                 console.log(isAdminValue); // Imprime el valor guardado en la variable externa
+                console.log(sessionId); //
+                console.log(datos[k]);
+                console.log(datos[k].usuario);
+                console.log(datos[k].usuario == sessionId );
                 if (datos[k].usuario == sessionId || isAdminValue) {
                   let btn = document.createElement("button");
                   btn.className = "cancel-btn";
