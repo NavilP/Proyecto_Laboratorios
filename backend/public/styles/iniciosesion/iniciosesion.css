@@ -85,3 +85,6 @@ button{
 #message {
     margin-top: 2em; 
 }
+.inputbox input::placeholder {
+    color: #fff;
+}

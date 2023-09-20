@@ -106,6 +106,43 @@ app.post('/nuevousuario', async (req, res) => {
   });
 });
 
+app.post('/changePassword', async (req, res) => {
+  const usuario = req.body.userUpdate;
+  const oldPassword = req.body.oldPassword;
+  const newPassword = req.body.newPassword;
+
+  db.query('SELECT contraseña FROM usuario WHERE correo = ?', [usuario], async (error, results) => {
+    if (error) {
+      throw error;
+    }
+
+    if (results.length > 0) {
+      const storedHashedPassword = results[0].contraseña;
+
+      try {
+        // Verifica la contraseña utilizando Argon2
+        const isMatch = await argon2.verify(storedHashedPassword, oldPassword);
+
+        if (isMatch) {
+          // Puede hacer el update   
+          const hashedPassword = await argon2.hash(newPassword);
+          db.query('UPDATE usuario SET contraseña = ? WHERE correo = ?', [hashedPassword, usuario], async (error, results) => {
+            if (error) {
+              throw error;
+            }
+            res.send('Cambio de contraseña exitoso');
+          });    
+        } else {
+          res.send('Contraseña incorrecta');
+        }
+      } catch (error) {
+        console.error(error);
+        res.send('Error al verificar la contraseña');
+      }
+    }
+  });
+});
+
 
 /*app.post('/login', (req, res) => {
   const usuario = req.body.username;
@@ -138,6 +175,9 @@ app.get('/horario', requireLogin, (req, res) => {
   res.sendFile(path.join(__dirname, 'public/views/horario.html'));
 });
 
+app.get('/confirm', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public/views/confirm.html'));
+});
 
 app.get('/inicio', (req, res) => {
   res.sendFile(path.join(__dirname, 'public/views/inicio.html'));
