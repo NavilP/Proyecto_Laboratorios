@@ -516,6 +516,7 @@ function updateEvents(date) {
     .then((response) => {
       const datos = response.data;
       const datosFil = datos.filter((dato) => dato.numLab == labSearch);
+      console.log(datosFil);
       if (datosFil.length > 0) {
         if (datosFil.length >= 8) {
           let p = document.createElement("p");
@@ -538,20 +539,17 @@ function updateEvents(date) {
             p.appendChild(time);
             eveN.appendChild(h3);
             eveN.appendChild(p);
+            const owner = datosFil[k].usuario;
+            const idres = datosFil[k].idreserva;
             obtenerTipoUsuario(sessionId)
               .then(function () {
                 // Aquí puedes hacer lo que quieras con el valor obtenido
-                console.log(isAdminValue); // Imprime el valor guardado en la variable externa
-                console.log(sessionId); //
-                console.log(datos[k]);
-                console.log(datos[k].usuario);
-                console.log(datos[k].usuario == sessionId );
-                if (datos[k].usuario == sessionId || isAdminValue) {
+                if (owner == sessionId || isAdminValue) {
                   let btn = document.createElement("button");
                   btn.className = "cancel-btn";
                   btn.textContent = "Cancelar reservacion";
                   eveN.appendChild(btn);
-                  cancelbtn(btn, datosFil[k].idreserva);
+                  cancelbtn(btn, idres);
                 }
               })
               .catch(function (error) {
