@@ -928,7 +928,7 @@ function optionFunc(event) {
     if (!searchDay.classList.contains("hide")) searchDay.classList.add("hide");
     btnNewUser.classList.add('active');
     searchDay.classList.remove("hide");
-    title.textContent = "Reservaciones";
+    title.textContent = "Cancelaciones";
 
     cancelaciones(tableContainer);
   }
